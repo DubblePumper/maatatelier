@@ -53,7 +53,7 @@ class QuoteRequestControllerTest extends TestCase
                 'consent',
             ]);
         $this->assertDatabaseCount('quote_requests', 0);
-        Mail::assertNothingQueued();
+        Mail::assertNothingOutgoing();
     }
 
     public function test_unsafe_upload_is_rejected_without_creating_an_application(): void
@@ -71,7 +71,7 @@ class QuoteRequestControllerTest extends TestCase
             ->assertSessionHasErrors('attachments.0');
         $this->assertDatabaseCount('quote_requests', 0);
         Storage::disk('local')->assertDirectoryEmpty('quote-requests');
-        Mail::assertNothingQueued();
+        Mail::assertNothingOutgoing();
     }
 
     public function test_upload_larger_than_fifteen_megabytes_is_rejected(): void
@@ -91,10 +91,10 @@ class QuoteRequestControllerTest extends TestCase
             ]);
         $this->assertDatabaseCount('quote_requests', 0);
         Storage::disk('local')->assertDirectoryEmpty('quote-requests');
-        Mail::assertNothingQueued();
+        Mail::assertNothingOutgoing();
     }
 
-    public function test_valid_payload_creates_application_stores_private_file_and_queues_emails(): void
+    public function test_valid_payload_creates_application_stores_private_file_and_sends_emails_immediately(): void
     {
         Storage::fake('local');
         Mail::fake();
@@ -120,14 +120,15 @@ class QuoteRequestControllerTest extends TestCase
 
         $quoteRequest = QuoteRequest::firstOrFail();
         Storage::disk('local')->assertExists($quoteRequest->attachments[0]['path']);
-        Mail::assertQueued(
+        Mail::assertSent(
             QuoteRequestConfirmation::class,
             fn (QuoteRequestConfirmation $mail): bool => $mail->hasTo('alex@example.com'),
         );
-        Mail::assertQueued(
+        Mail::assertSent(
             QuoteRequestReceived::class,
             fn (QuoteRequestReceived $mail): bool => $mail->hasTo('aanvragen@maatatelier.test'),
         );
+        Mail::assertNothingQueued();
     }
 
     public function test_confirmation_email_escapes_user_provided_content(): void
