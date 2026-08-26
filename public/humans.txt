@@ -1,0 +1,10 @@
+/* TEAM */
+Naam: MAATATELIER
+Locatie: Ronse, België
+Contact: info@maatatelier.be
+
+/* SITE */
+Taal: Nederlands (België)
+Technologie: Laravel, Blade, Tailwind CSS en JavaScript
+Standaarden: semantische HTML, WCAG 2.2 AA als toegankelijkheidsdoel, privacyvriendelijke Analytics-toestemming
+Laatste update: 2026-08-27

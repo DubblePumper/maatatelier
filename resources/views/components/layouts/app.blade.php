@@ -2,6 +2,7 @@
     'title' => null,
     'description' => null,
     'robots' => 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+    'analyticsEvent' => null,
 ])
 
 <!DOCTYPE html>
@@ -27,8 +28,14 @@
         <meta name="bingbot" content="{{ $robotsDirective }}">
         <link rel="canonical" href="{{ $canonicalUrl }}">
         <link rel="alternate" type="text/markdown" href="{{ $canonicalBase }}/llms.txt" title="MAATATELIER voor taalmodellen">
+        <link rel="alternate" type="text/markdown" href="{{ $canonicalBase }}/llms-full.txt" title="Uitgebreide informatie over MAATATELIER">
+        <link rel="author" type="text/plain" href="{{ $canonicalBase }}/humans.txt">
         <meta name="theme-color" content="#f7f5f2">
         <meta name="color-scheme" content="light">
+
+        @if (app()->isProduction() && config('services.google_analytics.measurement_id'))
+            <meta name="google-analytics-id" content="{{ config('services.google_analytics.measurement_id') }}">
+        @endif
 
         @if (config('maatatelier.google_site_verification'))
             <meta name="google-site-verification" content="{{ config('maatatelier.google_site_verification') }}">
@@ -67,7 +74,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @stack('head')
     </head>
-    <body class="bg-ivory text-anthracite antialiased">
+    <body class="bg-ivory text-anthracite antialiased" @if ($analyticsEvent) data-analytics-event="{{ $analyticsEvent }}" @endif>
         <a class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-anthracite focus:px-5 focus:py-3 focus:text-ivory" href="#inhoud">
             Ga naar de inhoud
         </a>
@@ -135,7 +142,7 @@
                 <div>
                     <h2 class="font-brand text-xs font-semibold uppercase tracking-[0.18em]">Werkregio</h2>
                     <p class="mt-5 text-sm leading-6 text-anthracite/70">Ronse en ruime omgeving. Buiten de regio? Deel je postcode, dan bekijken we wat mogelijk is.</p>
-                    <a class="mt-4 inline-flex min-h-11 items-center break-all font-brand text-sm font-semibold text-anthracite underline decoration-olive decoration-2 underline-offset-4" href="mailto:interieuratelieropmaat@gmail.com">interieuratelieropmaat@gmail.com</a>
+                    <a class="mt-4 inline-flex min-h-11 items-center break-all font-brand text-sm font-semibold text-anthracite underline decoration-olive decoration-2 underline-offset-4" href="mailto:{{ config('maatatelier.contact_email') }}">{{ config('maatatelier.contact_email') }}</a>
                     <a class="mt-2 inline-flex min-h-11 items-center font-brand text-sm font-semibold text-anthracite hover:underline" href="{{ route('quote_requests.create') }}">Start een project →</a>
                 </div>
             </div>
@@ -144,10 +151,14 @@
                     <p>© {{ now()->year }} MAATATELIER. Alle rechten voorbehouden.</p>
                     <nav class="flex flex-wrap gap-x-5" aria-label="Juridische informatie">
                         <a class="footer-link" href="{{ route('privacy') }}">Privacy</a>
+                        <a class="footer-link" href="{{ route('cookies') }}">Cookies</a>
                         <a class="footer-link" href="{{ route('accessibility') }}">Toegankelijkheid</a>
+                        <button class="footer-link cursor-pointer" type="button" data-consent-settings>Cookie-instellingen</button>
                     </nav>
                 </div>
             </div>
         </footer>
+
+        <x-consent-banner />
     </body>
 </html>

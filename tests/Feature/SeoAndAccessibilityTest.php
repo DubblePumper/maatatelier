@@ -18,6 +18,7 @@ class SeoAndAccessibilityTest extends TestCase
             'contact',
             'quote_requests.create',
             'privacy',
+            'cookies',
             'accessibility',
         ];
         $titles = [];
@@ -79,6 +80,9 @@ class SeoAndAccessibilityTest extends TestCase
             ->assertSee('<link rel="alternate" type="text/markdown" href="https://maatatelier.be/llms.txt"', false)
             ->assertSee('"@type":"HomeAndConstructionBusiness"', false)
             ->assertSee('"areaServed":{"@type":"AdministrativeArea","name":"Ronse en ruime omgeving"}', false)
+            ->assertSee('"email":"info@maatatelier.be"', false)
+            ->assertSee('mailto:info@maatatelier.be', false)
+            ->assertDontSee('interieuratelieropmaat@gmail.com', false)
             ->assertSee('Ga naar de inhoud');
 
         preg_match('/<script type="application\/ld\+json">(.*?)<\/script>/s', $response->getContent(), $matches);
@@ -99,6 +103,48 @@ class SeoAndAccessibilityTest extends TestCase
         $this->get(route('quote_requests.thank_you'))
             ->assertOk()
             ->assertSee('<meta name="robots" content="noindex, nofollow">', false);
+    }
+
+    public function test_production_renders_one_consent_controlled_google_tag_contract(): void
+    {
+        $this->app->detectEnvironment(fn (): string => 'production');
+
+        $response = $this->get(route('home'));
+        $contentSecurityPolicy = $response->headers->get('Content-Security-Policy');
+
+        $response
+            ->assertOk()
+            ->assertSee('<meta name="google-analytics-id" content="G-7HHM0CZN91">', false)
+            ->assertSee('data-consent-banner', false)
+            ->assertSee('data-consent-accept', false)
+            ->assertSee('data-consent-deny', false)
+            ->assertSee('data-consent-settings', false)
+            ->assertDontSee('<script async src="https://www.googletagmanager.com/gtag/js', false);
+
+        $this->assertSame(1, substr_count($response->getContent(), 'name="google-analytics-id"'));
+        $this->assertStringContainsString("script-src 'self' https://www.googletagmanager.com", $contentSecurityPolicy);
+        $this->assertStringContainsString('connect-src', $contentSecurityPolicy);
+        $this->assertStringContainsString('https://*.google-analytics.com', $contentSecurityPolicy);
+    }
+
+    public function test_non_production_never_exposes_the_google_measurement_id(): void
+    {
+        $this->get(route('home'))
+            ->assertOk()
+            ->assertDontSee('name="google-analytics-id"', false);
+    }
+
+    public function test_successful_confirmation_marks_only_a_real_application_as_a_lead(): void
+    {
+        $this->withSession(['quote_request_number' => 42])
+            ->get(route('quote_requests.thank_you'))
+            ->assertOk()
+            ->assertSee('data-analytics-event="generate_lead"', false)
+            ->assertSee('Referentie MAAT-00042');
+
+        $this->get(route('quote_requests.thank_you'))
+            ->assertOk()
+            ->assertDontSee('data-analytics-event="generate_lead"', false);
     }
 
     public function test_werkwijze_contains_visible_and_machine_readable_faq_answers(): void
@@ -126,14 +172,26 @@ class SeoAndAccessibilityTest extends TestCase
         $robots = file_get_contents(public_path('robots.txt'));
         $sitemap = file_get_contents(public_path('sitemap.xml'));
         $llms = file_get_contents(public_path('llms.txt'));
+        $llmsFull = file_get_contents(public_path('llms-full.txt'));
+        $humans = file_get_contents(public_path('humans.txt'));
+        $security = file_get_contents(public_path('.well-known/security.txt'));
         $manifest = json_decode(file_get_contents(public_path('site.webmanifest')), true, flags: JSON_THROW_ON_ERROR);
 
         $this->assertStringContainsString('User-agent: OAI-SearchBot', $robots);
         $this->assertStringContainsString('Sitemap: https://maatatelier.be/sitemap.xml', $robots);
         $this->assertStringContainsString('<loc>https://maatatelier.be/toegankelijkheid</loc>', $sitemap);
+        $this->assertStringContainsString('<loc>https://maatatelier.be/cookies</loc>', $sitemap);
         $this->assertStringNotContainsString('<loc>https://maatatelier.be/bedankt</loc>', $sitemap);
         $this->assertNotFalse(simplexml_load_string($sitemap));
         $this->assertStringContainsString('De HTML-pagina\'s blijven de primaire en actuele bron.', $llms);
+        $this->assertStringContainsString('https://maatatelier.be/llms-full.txt', $llms);
+        $this->assertStringContainsString('Contact: info@maatatelier.be', $llms);
+        $this->assertStringContainsString('G-7HHM0CZN91', $llmsFull);
+        $this->assertStringContainsString('Contactadres: info@maatatelier.be', $llmsFull);
+        $this->assertStringContainsString('Locatie: Ronse, België', $humans);
+        $this->assertStringContainsString('Contact: info@maatatelier.be', $humans);
+        $this->assertStringContainsString('Canonical: https://maatatelier.be/.well-known/security.txt', $security);
+        $this->assertStringContainsString('Contact: mailto:info@maatatelier.be', $security);
         $this->assertSame('nl-BE', $manifest['lang']);
         $this->assertSame('#6f6a4d', $manifest['theme_color']);
     }

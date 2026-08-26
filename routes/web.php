@@ -12,6 +12,7 @@ Route::middleware('cache.headers:public;max_age=3600;s_maxage=86400;stale_while_
     Route::view('/over-ons', 'pages.about')->name('about');
     Route::view('/contact', 'pages.contact')->name('contact');
     Route::view('/privacy', 'pages.privacy')->name('privacy');
+    Route::view('/cookies', 'pages.cookies')->name('cookies');
     Route::view('/toegankelijkheid', 'pages.accessibility')->name('accessibility');
 });
 

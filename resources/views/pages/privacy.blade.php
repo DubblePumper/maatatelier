@@ -17,7 +17,10 @@
         <h2>Delen met anderen</h2>
         <p>We verkopen je gegevens niet. Technische dienstverleners ontvangen alleen toegang wanneer dat nodig is voor hosting, opslag of e-mail en moeten de gegevens passend beschermen.</p>
 
+        <h2>Websiteanalyse en cookies</h2>
+        <p>Google Analytics wordt alleen geladen nadat je Analytics actief toestaat. Advertentiepersonalisatie blijft uitgeschakeld. Welke opslag wordt gebruikt en hoe je jouw keuze wijzigt, staat in het <a href="{{ route('cookies') }}">cookiebeleid</a>.</p>
+
         <h2>Jouw rechten</h2>
-        <p>Je kunt vragen om inzage, correctie of verwijdering van je persoonsgegevens. Mail daarvoor naar <a href="mailto:interieuratelieropmaat@gmail.com">interieuratelieropmaat@gmail.com</a> en vermeld dat je vraag over privacy gaat. Identiteitscontrole kan nodig zijn om gegevens veilig te houden.</p>
+        <p>Je kunt vragen om inzage, correctie of verwijdering van je persoonsgegevens. Mail daarvoor naar <a href="mailto:{{ config('maatatelier.contact_email') }}">{{ config('maatatelier.contact_email') }}</a> en vermeld dat je vraag over privacy gaat. Identiteitscontrole kan nodig zijn om gegevens veilig te houden.</p>
     </article>
 </x-layouts.app>

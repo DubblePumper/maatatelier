@@ -30,6 +30,7 @@ class PublicPagesTest extends TestCase
             'over ons' => ['about', 'Maatwerkinterieur uit Ronse, met aandacht gemaakt.'],
             'contact' => ['contact', 'Vertel ons over jouw ruimte.'],
             'privacy' => ['privacy', 'Zorgvuldig met jouw gegevens en beelden.'],
+            'cookies' => ['cookies', 'Duidelijke keuzes, zonder verborgen tracking.'],
             'toegankelijkheid' => ['accessibility', 'Een website die voor iedereen bruikbaar is.'],
         ];
     }

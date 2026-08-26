@@ -34,9 +34,11 @@ class QuoteRequestController extends Controller
 
     public function thankYou(): View
     {
+        $quoteRequestNumber = session()->pull('quote_request_number');
+
         return view('quote-requests.thank-you', [
-            'reference' => session('quote_request_number')
-                ? 'MAAT-'.str_pad((string) session('quote_request_number'), 5, '0', STR_PAD_LEFT)
+            'reference' => $quoteRequestNumber
+                ? 'MAAT-'.str_pad((string) $quoteRequestNumber, 5, '0', STR_PAD_LEFT)
                 : null,
         ]);
     }

@@ -1,4 +1,4 @@
-<x-layouts.app title="Aanvraag ontvangen | MAATATELIER" description="Je maatwerkaanvraag is goed ontvangen door MAATATELIER." robots="noindex, nofollow">
+<x-layouts.app title="Aanvraag ontvangen | MAATATELIER" description="Je maatwerkaanvraag is goed ontvangen door MAATATELIER." robots="noindex, nofollow" :analytics-event="$reference ? 'generate_lead' : null">
     <section class="bg-sand px-5 py-24 text-anthracite sm:px-8 lg:py-36">
         <div class="mx-auto max-w-5xl text-center">
             <div class="mx-auto flex size-20 items-center justify-center rounded-full bg-olive font-brand text-3xl font-semibold text-ivory" aria-hidden="true">✓</div>

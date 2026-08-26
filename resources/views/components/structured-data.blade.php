@@ -13,6 +13,7 @@
         'about' => 'Over ons',
         'contact' => 'Contact',
         'privacy' => 'Privacy',
+        'cookies' => 'Cookies',
         'accessibility' => 'Toegankelijkheid',
         'quote_requests.create' => 'Offerte aanvragen',
     ];
@@ -25,7 +26,7 @@
             'url' => $baseUrl.'/',
             'description' => 'Atelier voor maatkasten, dressings, keukens, meubels en complete interieurs op maat vanuit Ronse.',
             'slogan' => 'Kasten, keukens en interieur op maat',
-            'email' => 'interieuratelieropmaat@gmail.com',
+            'email' => config('maatatelier.contact_email'),
             'logo' => [
                 '@type' => 'ImageObject',
                 'url' => $baseUrl.'/images/app-icon.png',

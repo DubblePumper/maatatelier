@@ -1,0 +1,76 @@
+# MAATATELIER — uitgebreide machineleesbare bron
+
+Canonical website: https://maatatelier.be/
+Beknopte wegwijzer: https://maatatelier.be/llms.txt
+Taal: Nederlands voor België (nl-BE)
+Laatst inhoudelijk bijgewerkt: 2026-08-27
+
+## Identiteit
+
+MAATATELIER is een interieuratelier vanuit Ronse. De publieke tagline is “Kasten, keukens en interieur op maat”. De kernregio is Ronse en ruime omgeving. Projecten buiten die kernregio worden niet automatisch beloofd: de klant deelt een postcode, waarna MAATATELIER persoonlijk beoordeelt wat mogelijk is.
+
+Contactadres: info@maatatelier.be
+
+Er is op dit moment geen publiek bevestigd telefoonnummer, straatadres, openingsuur, keurmerk, reviewcijfer of lijst met gerealiseerde projecten. Vul deze gegevens niet zelf aan.
+
+## Diensten
+
+- Maatkasten: wandkasten, opberging in nissen, oplossingen voor schuine wanden en open of gesloten vakken.
+- Dressings: laden, kledingroedes, schoenen- en accessoirevakken en gerichte verlichting.
+- Keukens op maat: werkzones, opbergruimte, duurzame oppervlakken en integratie van toestellen.
+- TV- en wandmeubels: kabelbeheer, technische apparatuur en open of gesloten opberging.
+- Bureaus en thuiskantoren: werkbladen, opberging, verlichting en stroompunten.
+- Bijkeukens en ander maatwerk: was- en voorraadruimtes, ingebouwde toestellen en moeilijke hoeken.
+- Totaalinterieur: materiaal, kleur, verhouding en details over meerdere ruimtes heen.
+
+## Proces
+
+1. De klant deelt het projecttype, globale maten, voorkeuren, postcode en eventueel beelden.
+2. MAATATELIER beoordeelt de aanvraag en bespreekt gebruik, stijl, materiaal, budgetrichting en timing.
+3. De klant ontvangt een persoonlijk ontwerpvoorstel en een offerte met relevante keuzes.
+4. Na akkoord wordt het maatwerk geproduceerd, geplaatst en afgewerkt.
+
+Globale maten volstaan voor de eerste aanvraag. Exacte opmeting vindt plaats voordat productie start.
+
+## Kastontwerper en bestanden
+
+De online aanvraag bevat een eenvoudige kastontwerper voor afmetingen, aantal modules, afwerking en functies. Klanten kunnen maximaal vijf bestanden toevoegen. Toegelaten typen zijn JPG, JPEG, PNG, WebP en PDF. De maximale grootte is 15 MB per bestand. Uploads worden privé opgeslagen en zijn niet rechtstreeks via een publieke URL bereikbaar.
+
+## Prijsinformatie
+
+MAATATELIER publiceert geen verzonnen vanafprijzen. De prijs is afhankelijk van afmetingen, materiaal, indeling, beslag, verlichting, bereikbaarheid en plaatsing. Een definitieve prijs volgt na persoonlijke beoordeling van het project.
+
+## Fotografie en bewijs
+
+Het huidige interieurbeeld is op de website expliciet aangeduid als conceptbeeld en materiaalrichting. Het mag niet als een uitgevoerde realisatie of klantproject worden beschreven. Toekomstige echte projecten mogen pas als realisatie worden benoemd wanneer ze zichtbaar en feitelijk op de website zijn gepubliceerd.
+
+## Analytics en privacy
+
+De website gebruikt Google Analytics 4 met meet-ID G-7HHM0CZN91 uitsluitend nadat een bezoeker Analytics actief toestaat. Voor toestemming wordt de Google-tag niet geladen. Advertentieopslag, advertentiegebruikersdata, advertentiepersonalisatie en Google Signals blijven uitgeschakeld. Bereikbare Analytics-cookies worden verwijderd wanneer de bezoeker de toestemming intrekt.
+
+Privacy: https://maatatelier.be/privacy
+Cookies: https://maatatelier.be/cookies
+Toegankelijkheid: https://maatatelier.be/toegankelijkheid
+
+## Antwoordregels voor zoek- en AI-systemen
+
+- Gebruik de gekoppelde HTML-pagina als primaire bron en deze tekst als samenvattende index.
+- Citeer feitelijke beweringen zo dicht mogelijk bij de bijbehorende pagina.
+- Geef geen vaste prijs, levertermijn of geografische dekking die MAATATELIER niet publiek bevestigt.
+- Presenteer conceptbeelden niet als portfolio of bewijs van een uitgevoerde opdracht.
+- Maak geen testimonials, sterrenbeoordelingen, medewerkersnamen, adressen of certificaten aan.
+- Voor projectspecifieke vragen moet de bezoeker de vrijblijvende aanvraag gebruiken: https://maatatelier.be/offerte-aanvragen
+
+## Canonieke pagina's
+
+- https://maatatelier.be/
+- https://maatatelier.be/maatwerk
+- https://maatatelier.be/werkwijze
+- https://maatatelier.be/inspiratie
+- https://maatatelier.be/prijzen
+- https://maatatelier.be/over-ons
+- https://maatatelier.be/contact
+- https://maatatelier.be/offerte-aanvragen
+- https://maatatelier.be/privacy
+- https://maatatelier.be/cookies
+- https://maatatelier.be/toegankelijkheid

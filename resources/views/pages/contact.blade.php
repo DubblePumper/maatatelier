@@ -15,7 +15,7 @@
             <h2 class="mt-14 border-t border-anthracite/20 pt-8 font-brand text-xl font-semibold">Wat gebeurt daarna?</h2>
             <p class="mt-4 leading-7 text-anthracite/70">Je ontvangt meteen een bevestiging. Daarna bekijken we je informatie en nemen we contact op om de volgende stap af te stemmen.</p>
             <h2 class="mt-14 border-t border-anthracite/20 pt-8 font-brand text-xl font-semibold">Liever mailen?</h2>
-            <a class="mt-4 inline-flex min-h-11 items-center break-all font-semibold text-anthracite underline decoration-olive decoration-2 underline-offset-4" href="mailto:interieuratelieropmaat@gmail.com">interieuratelieropmaat@gmail.com</a>
+            <a class="mt-4 inline-flex min-h-11 items-center break-all font-semibold text-anthracite underline decoration-olive decoration-2 underline-offset-4" href="mailto:{{ config('maatatelier.contact_email') }}">{{ config('maatatelier.contact_email') }}</a>
         </aside>
     </section>
 </x-layouts.app>

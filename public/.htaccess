@@ -35,7 +35,7 @@
     <FilesMatch "\.(?:avif|gif|ico|jpe?g|png|svg|webp)$">
         Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=604800"
     </FilesMatch>
-    <FilesMatch "^(?:robots\.txt|sitemap\.xml|llms\.txt|site\.webmanifest)$">
+    <FilesMatch "^(?:robots\.txt|sitemap\.xml|llms(?:-full)?\.txt|humans\.txt|security\.txt|site\.webmanifest)$">
         Header set Cache-Control "public, max-age=3600, stale-while-revalidate=86400"
     </FilesMatch>
 </IfModule>

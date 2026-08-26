@@ -4,12 +4,14 @@
 
 Deze tekst is een beknopte, machineleesbare wegwijzer. De HTML-pagina's blijven de primaire en actuele bron.
 
+Uitgebreide bron: [llms-full.txt](https://maatatelier.be/llms-full.txt)
+
 ## Kerngegevens
 
 - Naam: MAATATELIER
 - Tagline: Kasten, keukens en interieur op maat
 - Werkregio: Ronse en ruime omgeving; voor andere locaties wordt de postcode persoonlijk beoordeeld
-- Contact: interieuratelieropmaat@gmail.com
+- Contact: info@maatatelier.be
 - Taal: Nederlands (België)
 - Diensten: maatkasten, dressings, keukens op maat, tv- en wandmeubels, bureaus en thuiskantoren, bijkeukens en complete interieurs
 - Aanvraag: vrijblijvend; klanten kunnen globale maten, voorkeuren en maximaal vijf JPG-, PNG-, WebP- of PDF-bestanden van maximaal 15 MB per bestand toevoegen
@@ -26,6 +28,7 @@ Deze tekst is een beknopte, machineleesbare wegwijzer. De HTML-pagina's blijven 
 - [Contact](https://maatatelier.be/contact): e-mailadres, werkregio en vervolg na een aanvraag
 - [Offerte aanvragen](https://maatatelier.be/offerte-aanvragen): kastontwerper, projectvragen en beveiligde bestandsupload
 - [Privacy](https://maatatelier.be/privacy): verwerking en bewaartermijn van aanvraaggegevens en uploads
+- [Cookies](https://maatatelier.be/cookies): toestemming, Google Analytics en opslagtermijnen
 - [Toegankelijkheid](https://maatatelier.be/toegankelijkheid): toegankelijkheidsdoel en meldingskanaal
 
 ## Bron- en gebruiksnotities

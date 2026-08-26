@@ -1,0 +1,5 @@
+Contact: mailto:info@maatatelier.be
+Expires: 2027-08-27T00:00:00Z
+Preferred-Languages: nl, en
+Canonical: https://maatatelier.be/.well-known/security.txt
+Policy: https://maatatelier.be/privacy

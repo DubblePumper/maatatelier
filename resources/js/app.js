@@ -1,3 +1,153 @@
+const initializeAnalyticsConsent = () => {
+    const measurementId = document.querySelector('meta[name="google-analytics-id"]')?.content;
+    const banner = document.querySelector('[data-consent-banner]');
+
+    if (!measurementId || !/^G-[A-Z0-9]+$/.test(measurementId) || !banner) {
+        return;
+    }
+
+    const consentStorageKey = 'maatatelier_consent_v1';
+    const acceptButton = banner.querySelector('[data-consent-accept]');
+    const denyButton = banner.querySelector('[data-consent-deny]');
+    const heading = banner.querySelector('[data-consent-heading]');
+    const status = document.querySelector('[data-consent-status]');
+    const settingsButtons = [...document.querySelectorAll('[data-consent-settings]')];
+    let settingsOpener = null;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function gtag() {
+        window.dataLayer.push(arguments);
+    };
+
+    const deniedConsent = {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'denied',
+    };
+
+    window.gtag('consent', 'default', deniedConsent);
+    window.gtag('set', 'ads_data_redaction', true);
+
+    const readStoredConsent = () => {
+        try {
+            return window.localStorage.getItem(consentStorageKey);
+        } catch {
+            return null;
+        }
+    };
+
+    const storeConsent = (value) => {
+        try {
+            window.localStorage.setItem(consentStorageKey, value);
+        } catch {
+            // De keuze geldt nog steeds voor de huidige pagina als opslag is geblokkeerd.
+        }
+    };
+
+    const announce = (message) => {
+        if (status) {
+            status.textContent = message;
+        }
+    };
+
+    const hideBanner = () => {
+        banner.hidden = true;
+
+        if (settingsOpener) {
+            settingsOpener.focus();
+            settingsOpener = null;
+        }
+    };
+
+    const showBanner = (opener = null) => {
+        settingsOpener = opener;
+        banner.hidden = false;
+
+        if (opener) {
+            heading?.focus();
+        }
+    };
+
+    const deleteAnalyticsCookies = () => {
+        const cookieNames = document.cookie
+            .split(';')
+            .map((cookie) => cookie.split('=')[0].trim())
+            .filter((name) => name === '_ga' || name.startsWith('_ga_'));
+        const domainVariants = ['', `; domain=${window.location.hostname}`, '; domain=.maatatelier.be'];
+
+        cookieNames.forEach((name) => {
+            domainVariants.forEach((domain) => {
+                document.cookie = `${name}=; Max-Age=0; path=/${domain}; SameSite=Lax`;
+            });
+        });
+    };
+
+    const loadGoogleAnalytics = () => {
+        window.gtag('consent', 'update', {
+            ...deniedConsent,
+            analytics_storage: 'granted',
+        });
+
+        if (document.querySelector('[data-google-analytics]')) {
+            return;
+        }
+
+        window.gtag('js', new Date());
+        window.gtag('config', measurementId, {
+            allow_ad_personalization_signals: false,
+            allow_google_signals: false,
+            cookie_expires: 15_552_000,
+            cookie_update: false,
+        });
+
+        const analyticsEvent = document.body.dataset.analyticsEvent;
+
+        if (analyticsEvent === 'generate_lead') {
+            window.gtag('event', 'generate_lead');
+        }
+
+        const script = document.createElement('script');
+
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+        script.dataset.googleAnalytics = 'true';
+        document.head.append(script);
+    };
+
+    const grantAnalytics = () => {
+        storeConsent('analytics-granted');
+        loadGoogleAnalytics();
+        hideBanner();
+        announce('Analytics is toegestaan. Je kunt deze keuze altijd wijzigen via de footer.');
+    };
+
+    const denyAnalytics = () => {
+        storeConsent('analytics-denied');
+        window.gtag('consent', 'update', deniedConsent);
+        deleteAnalyticsCookies();
+        hideBanner();
+        announce('Analytics is niet toegestaan. De website blijft volledig werken.');
+    };
+
+    acceptButton?.addEventListener('click', grantAnalytics);
+    denyButton?.addEventListener('click', denyAnalytics);
+    settingsButtons.forEach((button) => {
+        button.addEventListener('click', () => showBanner(button));
+    });
+
+    if (readStoredConsent() === 'analytics-granted') {
+        loadGoogleAnalytics();
+    } else if (readStoredConsent() !== 'analytics-denied') {
+        showBanner();
+    }
+};
+
+initializeAnalyticsConsent();
+
 const wizard = document.querySelector('[data-quote-wizard]');
 
 if (wizard) {
