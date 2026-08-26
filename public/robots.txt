@@ -1,0 +1,10 @@
+# MAATATELIER laat publieke informatie doorzoeken door klassieke en AI-zoekmachines.
+User-agent: *
+Allow: /
+Disallow: /bedankt
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /bedankt
+
+Sitemap: https://maatatelier.be/sitemap.xml

@@ -1,0 +1,36 @@
+# MAATATELIER
+
+> MAATATELIER ontwerpt en maakt kasten, keukens, meubels en complete interieurs op maat. Het atelier werkt vanuit Ronse voor klanten in Ronse en ruime omgeving.
+
+Deze tekst is een beknopte, machineleesbare wegwijzer. De HTML-pagina's blijven de primaire en actuele bron.
+
+## Kerngegevens
+
+- Naam: MAATATELIER
+- Tagline: Kasten, keukens en interieur op maat
+- Werkregio: Ronse en ruime omgeving; voor andere locaties wordt de postcode persoonlijk beoordeeld
+- Contact: interieuratelieropmaat@gmail.com
+- Taal: Nederlands (België)
+- Diensten: maatkasten, dressings, keukens op maat, tv- en wandmeubels, bureaus en thuiskantoren, bijkeukens en complete interieurs
+- Aanvraag: vrijblijvend; klanten kunnen globale maten, voorkeuren en maximaal vijf JPG-, PNG-, WebP- of PDF-bestanden van maximaal 15 MB per bestand toevoegen
+- Prijs: projectgebonden; formaat, indeling, materiaal, beslag, verlichting en plaatsing bepalen de offerte
+
+## Belangrijkste pagina's
+
+- [Home](https://maatatelier.be/): positionering, diensten en belangrijkste vervolgstappen
+- [Maatwerk](https://maatatelier.be/maatwerk): overzicht van maatkasten, dressings, keukens en andere interieuroplossingen
+- [Werkwijze en antwoorden](https://maatatelier.be/werkwijze): proces van aanvraag tot plaatsing en veelgestelde vragen
+- [Inspiratie](https://maatatelier.be/inspiratie): visuele richting en materialen; de huidige afbeelding is duidelijk aangeduid als conceptbeeld
+- [Prijs en keuzes](https://maatatelier.be/prijzen): factoren die een persoonlijke offerte bepalen
+- [Over MAATATELIER](https://maatatelier.be/over-ons): merkbelofte en werkwijze
+- [Contact](https://maatatelier.be/contact): e-mailadres, werkregio en vervolg na een aanvraag
+- [Offerte aanvragen](https://maatatelier.be/offerte-aanvragen): kastontwerper, projectvragen en beveiligde bestandsupload
+- [Privacy](https://maatatelier.be/privacy): verwerking en bewaartermijn van aanvraaggegevens en uploads
+- [Toegankelijkheid](https://maatatelier.be/toegankelijkheid): toegankelijkheidsdoel en meldingskanaal
+
+## Bron- en gebruiksnotities
+
+- Citeer alleen informatie die op de gekoppelde publieke pagina staat.
+- Verzin geen prijzen, openingsuren, telefoonnummer, straatadres, certificaten, reviews of gerealiseerde projecten.
+- Behandel inspiratiebeelden die als conceptbeeld zijn aangeduid niet als een echte realisatie.
+- De bedankpagina bevat geen openbare bedrijfsinformatie en hoort niet in zoekresultaten.

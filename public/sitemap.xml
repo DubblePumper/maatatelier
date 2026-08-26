@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+        <loc>https://maatatelier.be/</loc>
+        <lastmod>2026-08-27</lastmod>
+        <image:image>
+            <image:loc>https://maatatelier.be/images/hero-interior-v2.webp</image:loc>
+            <image:title>Warm maatwerkinterieur van MAATATELIER</image:title>
+            <image:caption>Conceptbeeld met eik, natuursteen en olijftinten.</image:caption>
+        </image:image>
+    </url>
+    <url><loc>https://maatatelier.be/maatwerk</loc><lastmod>2026-08-27</lastmod></url>
+    <url><loc>https://maatatelier.be/werkwijze</loc><lastmod>2026-08-27</lastmod></url>
+    <url>
+        <loc>https://maatatelier.be/inspiratie</loc>
+        <lastmod>2026-08-27</lastmod>
+        <image:image>
+            <image:loc>https://maatatelier.be/images/hero-interior-v2.webp</image:loc>
+            <image:title>Inspiratie voor een warm maatwerkinterieur</image:title>
+            <image:caption>Materiaalrichting met eik, steen en olijfbrons.</image:caption>
+        </image:image>
+    </url>
+    <url><loc>https://maatatelier.be/prijzen</loc><lastmod>2026-08-27</lastmod></url>
+    <url><loc>https://maatatelier.be/over-ons</loc><lastmod>2026-08-27</lastmod></url>
+    <url><loc>https://maatatelier.be/contact</loc><lastmod>2026-08-27</lastmod></url>
+    <url><loc>https://maatatelier.be/offerte-aanvragen</loc><lastmod>2026-08-27</lastmod></url>
+    <url><loc>https://maatatelier.be/privacy</loc><lastmod>2026-08-27</lastmod></url>
+    <url><loc>https://maatatelier.be/toegankelijkheid</loc><lastmod>2026-08-27</lastmod></url>
+</urlset>
