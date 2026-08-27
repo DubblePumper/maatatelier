@@ -9,7 +9,7 @@
         <p>We gebruiken deze informatie uitsluitend om je vraag te beoordelen, contact met je op te nemen, een voorstel voor te bereiden en de aanvraag administratief op te volgen.</p>
 
         <h2>Bestanden en beveiliging</h2>
-        <p>Geüploade bestanden worden privé opgeslagen en zijn niet rechtstreeks via de website bereikbaar. Toegang is beperkt tot wat nodig is voor de behandeling van je aanvraag.</p>
+        <p>Geüploade bestanden worden privé opgeslagen en zijn niet openbaar bereikbaar. MAATATELIER ontvangt per aanvraag tijdelijk ondertekende downloadlinks die na {{ config('maatatelier.attachment_link_lifetime_days') }} dagen vervallen. Toegang is beperkt tot wat nodig is voor de behandeling van je aanvraag.</p>
 
         <h2>Bewaartermijn</h2>
         <p>Aanvragen die niet tot een opdracht leiden, worden uiterlijk twaalf maanden na ontvangst verwijderd, samen met de bijbehorende uploads. Wettelijke bewaarplichten kunnen voor klant- en factuurgegevens een langere termijn vereisen.</p>

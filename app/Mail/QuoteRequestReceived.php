@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Support\Facades\URL;
 
 class QuoteRequestReceived extends Mailable
 {
@@ -34,6 +35,9 @@ class QuoteRequestReceived extends Mailable
     {
         return new Content(
             markdown: 'mail.quote-requests.received',
+            with: [
+                'attachmentLinks' => $this->attachmentLinks(),
+            ],
         );
     }
 
@@ -45,5 +49,27 @@ class QuoteRequestReceived extends Mailable
     public function attachments(): array
     {
         return [];
+    }
+
+    /**
+     * @return list<array{url: string, name: string, size: int}>
+     */
+    private function attachmentLinks(): array
+    {
+        return collect($this->quoteRequest->attachments ?? [])
+            ->map(function (array $attachment, int $index): array {
+                return [
+                    'url' => rtrim(config('maatatelier.canonical_url'), '/').URL::temporarySignedRoute(
+                        'quote_requests.attachments.download',
+                        now()->addDays(config('maatatelier.attachment_link_lifetime_days')),
+                        ['quoteRequest' => $this->quoteRequest, 'attachment' => $index],
+                        false,
+                    ),
+                    'name' => $attachment['original_name'] ?? 'Bijlage '.($index + 1),
+                    'size' => (int) ($attachment['size'] ?? 0),
+                ];
+            })
+            ->values()
+            ->all();
     }
 }

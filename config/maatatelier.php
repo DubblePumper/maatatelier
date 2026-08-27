@@ -2,8 +2,13 @@
 
 return [
     'canonical_url' => env('MAATATELIER_CANONICAL_URL', 'https://maatatelier.be'),
+    'production_hosts' => array_values(array_filter(array_map(
+        static fn (string $host): string => trim($host),
+        explode(',', env('MAATATELIER_PRODUCTION_HOSTS', 'maatatelier.be,www.maatatelier.be')),
+    ))),
     'contact_email' => env('MAATATELIER_CONTACT_EMAIL', 'info@maatatelier.be'),
     'quote_recipient' => env('MAATATELIER_QUOTE_RECIPIENT', 'info@maatatelier.be'),
+    'attachment_link_lifetime_days' => (int) env('MAATATELIER_ATTACHMENT_LINK_LIFETIME_DAYS', 90),
     'google_site_verification' => env('GOOGLE_SITE_VERIFICATION'),
     'bing_site_verification' => env('BING_SITE_VERIFICATION'),
     'indexnow_key' => '4e1c10b19978247d263290bb9d2b11ae',

@@ -21,11 +21,11 @@ class QuoteRequestController extends Controller
     {
         $quoteRequest = $createQuoteRequest->handle($request->validated());
 
-        Mail::to($quoteRequest->email)->send(new QuoteRequestConfirmation($quoteRequest));
-
         if (config('maatatelier.quote_recipient')) {
             Mail::to(config('maatatelier.quote_recipient'))->send(new QuoteRequestReceived($quoteRequest));
         }
+
+        Mail::to($quoteRequest->email)->send(new QuoteRequestConfirmation($quoteRequest));
 
         return redirect()
             ->route('quote_requests.thank_you')

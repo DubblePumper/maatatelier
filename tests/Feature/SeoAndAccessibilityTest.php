@@ -94,22 +94,37 @@ class SeoAndAccessibilityTest extends TestCase
 
     public function test_production_pages_are_indexable_but_confirmation_page_is_not(): void
     {
-        $this->app->detectEnvironment(fn (): string => 'production');
-
-        $this->get(route('home'))
+        $this->get('https://maatatelier.be/')
             ->assertOk()
             ->assertSee('<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">', false);
 
-        $this->get(route('quote_requests.thank_you'))
+        $this->get('https://maatatelier.be/bedankt')
             ->assertOk()
             ->assertSee('<meta name="robots" content="noindex, nofollow">', false);
     }
 
+    public function test_canonical_host_stays_indexable_and_secure_when_the_hosting_environment_is_misconfigured(): void
+    {
+        $this->app->detectEnvironment(fn (): string => 'local');
+
+        $response = $this->get('https://maatatelier.be/');
+
+        $response
+            ->assertOk()
+            ->assertSee('<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">', false)
+            ->assertSee('<meta name="google-analytics-id" content="G-7HHM0CZN91">', false)
+            ->assertHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
+            ->assertHeaderMissing('Set-Cookie');
+
+        $this->assertStringContainsString(
+            "default-src 'self'",
+            (string) $response->headers->get('Content-Security-Policy'),
+        );
+    }
+
     public function test_production_renders_one_consent_controlled_google_tag_contract(): void
     {
-        $this->app->detectEnvironment(fn (): string => 'production');
-
-        $response = $this->get(route('home'));
+        $response = $this->get('https://maatatelier.be/');
         $contentSecurityPolicy = $response->headers->get('Content-Security-Policy');
 
         $response
@@ -131,6 +146,7 @@ class SeoAndAccessibilityTest extends TestCase
     {
         $this->get(route('home'))
             ->assertOk()
+            ->assertSee('<meta name="robots" content="noindex, nofollow">', false)
             ->assertDontSee('name="google-analytics-id"', false);
     }
 
@@ -158,11 +174,13 @@ class SeoAndAccessibilityTest extends TestCase
 
     public function test_public_pages_use_cache_headers_while_the_quote_flow_is_private(): void
     {
-        $publicCacheControl = $this->get(route('maatwerk'))->headers->get('Cache-Control');
+        $publicResponse = $this->get(route('maatwerk'));
+        $publicCacheControl = $publicResponse->headers->get('Cache-Control');
         $privateCacheControl = $this->get(route('quote_requests.create'))->headers->get('Cache-Control');
 
         $this->assertStringContainsString('public', $publicCacheControl);
         $this->assertStringContainsString('max-age=3600', $publicCacheControl);
+        $publicResponse->assertHeaderMissing('Set-Cookie');
         $this->assertStringContainsString('no-store', $privateCacheControl);
         $this->assertStringContainsString('private', $privateCacheControl);
     }

@@ -18,7 +18,8 @@
             $requestPath = request()->getPathInfo();
             $canonicalUrl = $canonicalBase.($requestPath === '/' ? '/' : $requestPath);
             $socialImage = $canonicalBase.'/images/hero-interior-v2.webp';
-            $robotsDirective = app()->isProduction() ? $robots : 'noindex, nofollow';
+            $isProductionRequest = \App\Support\SiteContext::isProductionRequest(request());
+            $robotsDirective = $isProductionRequest ? $robots : 'noindex, nofollow';
         @endphp
 
         <title>{{ $pageTitle }}</title>
@@ -33,7 +34,7 @@
         <meta name="theme-color" content="#f7f5f2">
         <meta name="color-scheme" content="light">
 
-        @if (app()->isProduction() && config('services.google_analytics.measurement_id'))
+        @if ($isProductionRequest && config('services.google_analytics.measurement_id'))
             <meta name="google-analytics-id" content="{{ config('services.google_analytics.measurement_id') }}">
         @endif
 

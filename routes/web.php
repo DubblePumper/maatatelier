@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DownloadQuoteRequestAttachmentController;
 use App\Http\Controllers\QuoteRequestController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,8 @@ Route::post('/offerte-aanvragen', [QuoteRequestController::class, 'store'])
     ->name('quote_requests.store');
 Route::get('/bedankt', [QuoteRequestController::class, 'thankYou'])
     ->name('quote_requests.thank_you');
+Route::get('/aanvragen/{quoteRequest}/bijlagen/{attachment}', DownloadQuoteRequestAttachmentController::class)
+    ->middleware(['signed:relative', 'throttle:30,1'])
+    ->whereNumber('quoteRequest')
+    ->whereNumber('attachment')
+    ->name('quote_requests.attachments.download');

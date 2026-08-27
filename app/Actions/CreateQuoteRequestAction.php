@@ -33,7 +33,7 @@ class CreateQuoteRequestAction
 
     /**
      * @param  list<UploadedFile>  $attachments
-     * @return list<array{path: string, mime_type: string, size: int}>
+     * @return list<array{path: string, original_name: string, mime_type: string, size: int}>
      */
     private function storeAttachments(array $attachments): array
     {
@@ -43,6 +43,7 @@ class CreateQuoteRequestAction
 
                 return [
                     'path' => $path,
+                    'original_name' => basename($attachment->getClientOriginalName()),
                     'mime_type' => $attachment->getMimeType() ?: 'application/octet-stream',
                     'size' => (int) $attachment->getSize(),
                 ];

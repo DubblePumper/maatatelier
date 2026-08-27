@@ -22,5 +22,15 @@
 {{ $quoteRequest->notes }}
 @endif
 
-Deze aanvraag is opgeslagen. Eventuele foto's of schetsen blijven privé opgeslagen en worden niet aan e-mail toegevoegd.
+@if ($attachmentLinks)
+## Foto's en schetsen
+
+@foreach ($attachmentLinks as $attachment)
+- [{{ $attachment['name'] }} ({{ Number::fileSize($attachment['size'], precision: 1) }})]({{ $attachment['url'] }})
+@endforeach
+
+De beveiligde downloadlinks blijven {{ config('maatatelier.attachment_link_lifetime_days') }} dagen geldig. De bestanden staan privé en worden niet als zware e-mailbijlagen meegestuurd.
+@else
+Er zijn geen foto's of schetsen toegevoegd.
+@endif
 </x-mail::message>

@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 use Tests\TestCase;
 
 class QuoteRequestControllerTest extends TestCase
@@ -120,6 +121,7 @@ class QuoteRequestControllerTest extends TestCase
 
         $quoteRequest = QuoteRequest::firstOrFail();
         Storage::disk('local')->assertExists($quoteRequest->attachments[0]['path']);
+        $this->assertSame('ruimte.jpg', $quoteRequest->attachments[0]['original_name']);
         Mail::assertSent(
             QuoteRequestConfirmation::class,
             fn (QuoteRequestConfirmation $mail): bool => $mail->hasTo('alex@example.com'),
@@ -129,6 +131,57 @@ class QuoteRequestControllerTest extends TestCase
             fn (QuoteRequestReceived $mail): bool => $mail->hasTo('aanvragen@maatatelier.test'),
         );
         Mail::assertNothingQueued();
+    }
+
+    public function test_private_attachment_can_only_be_downloaded_with_a_valid_temporary_signature(): void
+    {
+        Storage::fake('local');
+        Storage::disk('local')->put('quote-requests/ruimte.jpg', 'afbeeldingsdata');
+
+        $quoteRequest = QuoteRequest::factory()->create([
+            'attachments' => [[
+                'path' => 'quote-requests/ruimte.jpg',
+                'original_name' => 'ruimte.jpg',
+                'mime_type' => 'image/jpeg',
+                'size' => 16,
+            ]],
+        ]);
+
+        $routeParameters = ['quoteRequest' => $quoteRequest, 'attachment' => 0];
+
+        $this->get(route('quote_requests.attachments.download', $routeParameters))
+            ->assertForbidden();
+
+        $signedUrl = URL::temporarySignedRoute(
+            'quote_requests.attachments.download',
+            now()->addMinute(),
+            $routeParameters,
+            false,
+        );
+
+        $this->get($signedUrl)
+            ->assertOk()
+            ->assertDownload('MAAT-'.str_pad((string) $quoteRequest->id, 5, '0', STR_PAD_LEFT).'-bijlage-1.jpg')
+            ->assertHeader('Cache-Control', 'no-store, private')
+            ->assertHeader('X-Content-Type-Options', 'nosniff');
+    }
+
+    public function test_internal_notification_email_contains_private_attachment_links(): void
+    {
+        $quoteRequest = QuoteRequest::factory()->create([
+            'attachments' => [[
+                'path' => 'quote-requests/ruimte.jpg',
+                'original_name' => 'mijn ruimte.jpg',
+                'mime_type' => 'image/jpeg',
+                'size' => 1500,
+            ]],
+        ]);
+
+        $html = (new QuoteRequestReceived($quoteRequest))->render();
+
+        $this->assertStringContainsString('mijn ruimte.jpg', $html);
+        $this->assertStringContainsString('/aanvragen/'.$quoteRequest->id.'/bijlagen/0', $html);
+        $this->assertStringContainsString('90 dagen geldig', $html);
     }
 
     public function test_confirmation_email_escapes_user_provided_content(): void

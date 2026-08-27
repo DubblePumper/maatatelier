@@ -12,6 +12,21 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustHosts(
+            at: function (): array {
+                $productionHosts = array_map(
+                    static fn (string $host): string => '^'.preg_quote($host, '/').'$',
+                    config('maatatelier.production_hosts', []),
+                );
+
+                if (! app()->isProduction()) {
+                    $productionHosts = [...$productionHosts, '^localhost$', '^127\.0\.0\.1$'];
+                }
+
+                return $productionHosts;
+            },
+            subdomains: false,
+        );
         $middleware->append(SecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
