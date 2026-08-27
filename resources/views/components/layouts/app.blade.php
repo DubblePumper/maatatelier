@@ -5,22 +5,31 @@
     'analyticsEvent' => null,
 ])
 
+@php
+    $pageTitle = $title ?? 'MAATATELIER | Kasten, keukens en interieur op maat';
+    $pageDescription = $description ?? 'Persoonlijk maatwerk voor kasten, dressings, keukens en interieurs in Ronse en ruime omgeving.';
+    $canonicalBase = rtrim(config('maatatelier.canonical_url'), '/');
+    $requestPath = request()->getPathInfo();
+    $canonicalUrl = $canonicalBase.($requestPath === '/' ? '/' : $requestPath);
+    $socialImage = $canonicalBase.'/images/hero-interior-v2.webp';
+    $isProductionRequest = \App\Support\SiteContext::isProductionRequest(request());
+    $robotsDirective = $isProductionRequest ? $robots : 'noindex, nofollow';
+    $googleAnalyticsMeasurementId = $isProductionRequest
+        ? config('services.google_analytics.measurement_id')
+        : null;
+@endphp
+
 <!DOCTYPE html>
 <html lang="nl-BE" dir="ltr">
     <head>
+        @if ($googleAnalyticsMeasurementId)
+            <!-- Google tag (gtag.js) with Consent Mode v2 defaults -->
+            <script src="{{ asset('google-tag-consent-v2.js') }}" data-google-tag-bootstrap data-measurement-id="{{ $googleAnalyticsMeasurementId }}"></script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{ rawurlencode($googleAnalyticsMeasurementId) }}" data-google-analytics></script>
+        @endif
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        @php
-            $pageTitle = $title ?? 'MAATATELIER | Kasten, keukens en interieur op maat';
-            $pageDescription = $description ?? 'Persoonlijk maatwerk voor kasten, dressings, keukens en interieurs in Ronse en ruime omgeving.';
-            $canonicalBase = rtrim(config('maatatelier.canonical_url'), '/');
-            $requestPath = request()->getPathInfo();
-            $canonicalUrl = $canonicalBase.($requestPath === '/' ? '/' : $requestPath);
-            $socialImage = $canonicalBase.'/images/hero-interior-v2.webp';
-            $isProductionRequest = \App\Support\SiteContext::isProductionRequest(request());
-            $robotsDirective = $isProductionRequest ? $robots : 'noindex, nofollow';
-        @endphp
 
         <title>{{ $pageTitle }}</title>
         <meta name="description" content="{{ $pageDescription }}">
@@ -34,8 +43,8 @@
         <meta name="theme-color" content="#f7f5f2">
         <meta name="color-scheme" content="light">
 
-        @if ($isProductionRequest && config('services.google_analytics.measurement_id'))
-            <meta name="google-analytics-id" content="{{ config('services.google_analytics.measurement_id') }}">
+        @if ($googleAnalyticsMeasurementId)
+            <meta name="google-analytics-id" content="{{ $googleAnalyticsMeasurementId }}">
         @endif
 
         @if (config('maatatelier.google_site_verification'))

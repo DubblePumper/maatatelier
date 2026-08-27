@@ -4,7 +4,7 @@
             <p class="section-label">Jouw privacykeuze</p>
             <h2 class="mt-3 font-brand text-xl font-semibold" data-consent-heading tabindex="-1">Mogen we het websitebezoek meten?</h2>
             <p class="mt-3 max-w-2xl text-sm leading-6 text-anthracite/70" id="consent-description">
-                Met jouw toestemming gebruikt MAATATELIER Google Analytics om te begrijpen welke pagina’s helpen. Zonder toestemming laden we Google niet en blijft de website volledig werken.
+                Met jouw toestemming gebruikt MAATATELIER Google Analytics om te begrijpen welke pagina’s helpen. Zonder toestemming plaatsen we geen Analytics-cookies; Google ontvangt dan alleen beperkte, cookieloze meetsignalen en de website blijft volledig werken.
                 <a class="font-semibold underline decoration-olive decoration-2 underline-offset-4" href="{{ route('cookies') }}">Lees het cookiebeleid</a>.
             </p>
         </div>

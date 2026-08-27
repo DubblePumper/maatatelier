@@ -113,6 +113,7 @@ class SeoAndAccessibilityTest extends TestCase
             ->assertOk()
             ->assertSee('<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">', false)
             ->assertSee('<meta name="google-analytics-id" content="G-7HHM0CZN91">', false)
+            ->assertSee('<script async src="https://www.googletagmanager.com/gtag/js?id=G-7HHM0CZN91" data-google-analytics></script>', false)
             ->assertHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
             ->assertHeaderMissing('Set-Cookie');
 
@@ -130,16 +131,38 @@ class SeoAndAccessibilityTest extends TestCase
         $response
             ->assertOk()
             ->assertSee('<meta name="google-analytics-id" content="G-7HHM0CZN91">', false)
+            ->assertSee('<script src="https://maatatelier.be/google-tag-consent-v2.js" data-google-tag-bootstrap data-measurement-id="G-7HHM0CZN91"></script>', false)
+            ->assertSee('<script async src="https://www.googletagmanager.com/gtag/js?id=G-7HHM0CZN91" data-google-analytics></script>', false)
             ->assertSee('data-consent-banner', false)
             ->assertSee('data-consent-accept', false)
             ->assertSee('data-consent-deny', false)
-            ->assertSee('data-consent-settings', false)
-            ->assertDontSee('<script async src="https://www.googletagmanager.com/gtag/js', false);
+            ->assertSee('data-consent-settings', false);
 
         $this->assertSame(1, substr_count($response->getContent(), 'name="google-analytics-id"'));
+        $this->assertSame(1, substr_count($response->getContent(), 'https://www.googletagmanager.com/gtag/js?id=G-7HHM0CZN91'));
+        $this->assertMatchesRegularExpression(
+            '/<head>\s*<!-- Google tag \(gtag\.js\) with Consent Mode v2 defaults -->/',
+            $response->getContent(),
+        );
         $this->assertStringContainsString("script-src 'self' https://www.googletagmanager.com", $contentSecurityPolicy);
         $this->assertStringContainsString('connect-src', $contentSecurityPolicy);
         $this->assertStringContainsString('https://*.google-analytics.com', $contentSecurityPolicy);
+    }
+
+    public function test_google_tag_bootstrap_sets_consent_mode_v2_defaults_before_configuring_analytics(): void
+    {
+        $bootstrap = file_get_contents(public_path('google-tag-consent-v2.js'));
+        $consentDefaultPosition = strpos($bootstrap, "window.gtag('consent', 'default'");
+        $configurationPosition = strpos($bootstrap, "window.gtag('config', measurementId");
+
+        $this->assertNotFalse($consentDefaultPosition);
+        $this->assertNotFalse($configurationPosition);
+        $this->assertLessThan($configurationPosition, $consentDefaultPosition);
+        $this->assertStringContainsString("ad_storage: 'denied'", $bootstrap);
+        $this->assertStringContainsString("analytics_storage: 'denied'", $bootstrap);
+        $this->assertStringContainsString("ad_user_data: 'denied'", $bootstrap);
+        $this->assertStringContainsString("ad_personalization: 'denied'", $bootstrap);
+        $this->assertStringContainsString('wait_for_update: 500', $bootstrap);
     }
 
     public function test_non_production_never_exposes_the_google_measurement_id(): void
@@ -147,7 +170,9 @@ class SeoAndAccessibilityTest extends TestCase
         $this->get(route('home'))
             ->assertOk()
             ->assertSee('<meta name="robots" content="noindex, nofollow">', false)
-            ->assertDontSee('name="google-analytics-id"', false);
+            ->assertDontSee('name="google-analytics-id"', false)
+            ->assertDontSee('google-tag-consent-v2.js', false)
+            ->assertDontSee('www.googletagmanager.com/gtag/js', false);
     }
 
     public function test_successful_confirmation_marks_only_a_real_application_as_a_lead(): void

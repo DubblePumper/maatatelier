@@ -46,7 +46,7 @@ Het huidige interieurbeeld is op de website expliciet aangeduid als conceptbeeld
 
 ## Analytics en privacy
 
-De website gebruikt Google Analytics 4 met meet-ID G-7HHM0CZN91 uitsluitend nadat een bezoeker Analytics actief toestaat. Voor toestemming wordt de Google-tag niet geladen. Advertentieopslag, advertentiegebruikersdata, advertentiepersonalisatie en Google Signals blijven uitgeschakeld. Bereikbare Analytics-cookies worden verwijderd wanneer de bezoeker de toestemming intrekt.
+De Google-tag voor Analytics 4 met meet-ID G-7HHM0CZN91 wordt op elke productiepagina geladen met opslag en advertentiefuncties standaard geweigerd. Zonder toestemming worden geen Analytics-cookies geplaatst en ontvangt Google alleen beperkte, cookieloze toestemmings- en meetsignalen. Alleen analytics_storage wordt na actieve toestemming toegestaan. Advertentieopslag, advertentiegebruikersdata, advertentiepersonalisatie en Google Signals blijven uitgeschakeld. Bereikbare Analytics-cookies worden verwijderd wanneer de bezoeker de toestemming intrekt.
 
 Privacy: https://maatatelier.be/privacy
 Cookies: https://maatatelier.be/cookies

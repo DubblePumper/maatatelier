@@ -13,6 +13,7 @@ const initializeAnalyticsConsent = () => {
     const status = document.querySelector('[data-consent-status]');
     const settingsButtons = [...document.querySelectorAll('[data-consent-settings]')];
     let settingsOpener = null;
+    let analyticsEventSent = false;
 
     window.dataLayer = window.dataLayer || [];
     window.gtag = window.gtag || function gtag() {
@@ -28,9 +29,6 @@ const initializeAnalyticsConsent = () => {
         personalization_storage: 'denied',
         security_storage: 'denied',
     };
-
-    window.gtag('consent', 'default', deniedConsent);
-    window.gtag('set', 'ads_data_redaction', true);
 
     const readStoredConsent = () => {
         try {
@@ -86,41 +84,23 @@ const initializeAnalyticsConsent = () => {
         });
     };
 
-    const loadGoogleAnalytics = () => {
+    const enableGoogleAnalytics = () => {
         window.gtag('consent', 'update', {
             ...deniedConsent,
             analytics_storage: 'granted',
         });
 
-        if (document.querySelector('[data-google-analytics]')) {
-            return;
-        }
-
-        window.gtag('js', new Date());
-        window.gtag('config', measurementId, {
-            allow_ad_personalization_signals: false,
-            allow_google_signals: false,
-            cookie_expires: 15_552_000,
-            cookie_update: false,
-        });
-
         const analyticsEvent = document.body.dataset.analyticsEvent;
 
-        if (analyticsEvent === 'generate_lead') {
+        if (analyticsEvent === 'generate_lead' && !analyticsEventSent) {
             window.gtag('event', 'generate_lead');
+            analyticsEventSent = true;
         }
-
-        const script = document.createElement('script');
-
-        script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
-        script.dataset.googleAnalytics = 'true';
-        document.head.append(script);
     };
 
     const grantAnalytics = () => {
         storeConsent('analytics-granted');
-        loadGoogleAnalytics();
+        enableGoogleAnalytics();
         hideBanner();
         announce('Analytics is toegestaan. Je kunt deze keuze altijd wijzigen via de footer.');
     };
@@ -140,7 +120,7 @@ const initializeAnalyticsConsent = () => {
     });
 
     if (readStoredConsent() === 'analytics-granted') {
-        loadGoogleAnalytics();
+        enableGoogleAnalytics();
     } else if (readStoredConsent() !== 'analytics-denied') {
         showBanner();
     }
