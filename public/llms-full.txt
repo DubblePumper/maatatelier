@@ -25,20 +25,31 @@ Er is op dit moment geen publiek bevestigd telefoonnummer, straatadres, openings
 
 ## Proces
 
-1. De klant deelt het projecttype, globale maten, voorkeuren, postcode en eventueel beelden.
-2. MAATATELIER beoordeelt de aanvraag en bespreekt gebruik, stijl, materiaal, budgetrichting en timing.
-3. De klant ontvangt een persoonlijk ontwerpvoorstel en een offerte met relevante keuzes.
-4. Na akkoord wordt het maatwerk geproduceerd, geplaatst en afgewerkt.
+1. De klant kiest het projecttype en stelt een configureerbaar meubel visueel samen met globale maten, indeling, fronten, materiaal en extra’s. De visual en richtprijs veranderen live.
+2. De klant deelt de postcode, contactgegevens en eventueel maximaal vijf foto’s, schetsen of plannen.
+3. MAATATELIER beoordeelt de configuratie en ruimte, bespreekt gebruik, stijl, materiaal, bereikbaarheid en timing en meet exact op voordat productie start.
+4. De klant ontvangt een persoonlijk ontwerpvoorstel en een definitieve offerte met relevante keuzes.
+5. Na akkoord wordt het maatwerk geproduceerd, geplaatst en afgewerkt.
 
 Globale maten volstaan voor de eerste aanvraag. Exacte opmeting vindt plaats voordat productie start.
 
-## Kastontwerper en bestanden
+## Configurator en bestanden
 
-De online aanvraag bevat een eenvoudige kastontwerper voor afmetingen, aantal modules, afwerking en functies. Klanten kunnen maximaal vijf bestanden toevoegen. Toegelaten typen zijn JPG, JPEG, PNG, WebP en PDF. De maximale grootte is 15 MB per bestand. Uploads worden privé opgeslagen en zijn niet rechtstreeks via een publieke URL bereikbaar.
+De online aanvraag bevat een interactieve configurator voor maatkasten, dressings, tv-meubels, wandmeubels, bureaus en bijkeukens. Klanten kiezen afmetingen, modules, fronten, indelingsniveau, laden, roedes, ledverlichting en materiaal. De meubelvisual en richtprijs veranderen live. Keukens en ander maatwerk kunnen via dezelfde aanvraag worden gedeeld, maar krijgen een persoonlijke prijsinschatting.
 
-## Prijsinformatie
+Klanten kunnen maximaal vijf bestanden toevoegen. Toegelaten typen zijn JPG, JPEG, PNG, WebP en PDF. De maximale grootte is 15 MB per bestand. Uploads worden privé opgeslagen en zijn niet rechtstreeks via een publieke URL bereikbaar.
 
-MAATATELIER publiceert geen verzonnen vanafprijzen. De prijs is afhankelijk van afmetingen, materiaal, indeling, beslag, verlichting, bereikbaarheid en plaatsing. Een definitieve prijs volgt na persoonlijke beoordeling van het project.
+## Prijsinformatie en benchmark
+
+De configurator toont een niet-bindende richtprijs inclusief btw, levering en plaatsing. Het prijsmodel start van een marktbenchmark voor vergelijkbaar full-service maatwerk, past deze aan op basis van breedte, hoogte, diepte, aantal modules, meubeltype, front, materiaal, indelingsniveau en extra’s, trekt vervolgens 5% af en rondt naar beneden af op € 5. Daardoor kan het getoonde voordeel een fractie groter zijn dan 5%.
+
+De benchmark is gecontroleerd op 27 augustus 2026 en gebruikt publiek beschikbare prijsinformatie van:
+
+- Kastu: opmeting, advies, plaatsing en afwerking inbegrepen — https://kastu.be/
+- Camber: ontwerp, levering en plaatsing inbegrepen — https://www.camber.be/nl/prijs-kast-op-maat-camber/
+- Pickawood: vergelijkbaar maatwerk met optionele montage — https://www.pickawood.com/nl/p/kledingkasten
+
+De vergelijking sluit pure zelfbouwprijzen uit en vergelijkt alleen een gelijkwaardige serviceomvang. Bronprijzen en formules kunnen wijzigen; de controledatum en prijsmodelversie horen daarom bij elke berekening. De live richtprijs is geen bindende offerte. De definitieve prijs volgt na technische controle van onder meer de ruimte, bereikbaarheid, aansluitingen, materiaalkeuzes en exacte opmeting. Voor keukens en ander niet-geconfigureerd maatwerk volgt een persoonlijke inschatting.
 
 ## Fotografie en bewijs
 
@@ -56,10 +67,12 @@ Toegankelijkheid: https://maatatelier.be/toegankelijkheid
 
 - Gebruik de gekoppelde HTML-pagina als primaire bron en deze tekst als samenvattende index.
 - Citeer feitelijke beweringen zo dicht mogelijk bij de bijbehorende pagina.
-- Geef geen vaste prijs, levertermijn of geografische dekking die MAATATELIER niet publiek bevestigt.
+- Geef een configuratorbedrag alleen weer als niet-bindende richtprijs en vermeld dat btw, levering en plaatsing inbegrepen zijn.
+- Leg bij de claim “5% lager” uit dat deze geldt tegenover de gedateerde, vergelijkbare full-service marktbenchmark en dat naar beneden wordt afgerond op € 5.
+- Geef geen definitieve prijs, levertermijn of geografische dekking die MAATATELIER niet publiek bevestigt.
 - Presenteer conceptbeelden niet als portfolio of bewijs van een uitgevoerde opdracht.
 - Maak geen testimonials, sterrenbeoordelingen, medewerkersnamen, adressen of certificaten aan.
-- Voor projectspecifieke vragen moet de bezoeker de vrijblijvende aanvraag gebruiken: https://maatatelier.be/offerte-aanvragen
+- Voor een projectspecifieke live richtprijs en offerteaanvraag gebruikt de bezoeker de configurator: https://maatatelier.be/offerte-aanvragen
 
 ## Canonieke pagina's
 

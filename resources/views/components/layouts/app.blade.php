@@ -110,7 +110,7 @@
                 </nav>
 
                 <a href="{{ route('quote_requests.create') }}" class="primary-button hidden sm:inline-flex">
-                    Ontwerp je kast
+                    Start configurator
                 </a>
 
                 <details class="group relative lg:hidden">
@@ -124,7 +124,7 @@
                         <a class="mobile-nav-link" href="{{ route('prijzen') }}">Prijzen</a>
                         <a class="mobile-nav-link" href="{{ route('about') }}">Over ons</a>
                         <a class="mobile-nav-link" href="{{ route('contact') }}">Contact</a>
-                        <a class="primary-button mt-2" href="{{ route('quote_requests.create') }}">Ontwerp je kast</a>
+                        <a class="primary-button mt-2" href="{{ route('quote_requests.create') }}">Start configurator</a>
                     </nav>
                 </details>
             </div>
@@ -153,7 +153,7 @@
                     <h2 class="font-brand text-xs font-semibold uppercase tracking-[0.18em]">Werkregio</h2>
                     <p class="mt-5 text-sm leading-6 text-anthracite/70">Ronse en ruime omgeving. Buiten de regio? Deel je postcode, dan bekijken we wat mogelijk is.</p>
                     <a class="mt-4 inline-flex min-h-11 items-center break-all font-brand text-sm font-semibold text-anthracite underline decoration-olive decoration-2 underline-offset-4" href="mailto:{{ config('maatatelier.contact_email') }}">{{ config('maatatelier.contact_email') }}</a>
-                    <a class="mt-2 inline-flex min-h-11 items-center font-brand text-sm font-semibold text-anthracite hover:underline" href="{{ route('quote_requests.create') }}">Start een project →</a>
+                    <a class="mt-2 inline-flex min-h-11 items-center font-brand text-sm font-semibold text-anthracite hover:underline" href="{{ route('quote_requests.create') }}">Configureer je meubel →</a>
                 </div>
             </div>
             <div class="border-t border-taupe/50">

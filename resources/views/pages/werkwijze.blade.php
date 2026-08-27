@@ -1,12 +1,12 @@
-<x-layouts.app title="Zo werkt interieur op maat | MAATATELIER Ronse" description="Van eerste idee en globale maten tot ontwerp, offerte en plaatsing: zo begeleidt MAATATELIER jouw maatwerkproject vanuit Ronse.">
+<x-layouts.app title="Van configurator tot plaatsing | MAATATELIER Ronse" description="Configureer je meubel met een live richtprijs en volg het traject van foto’s en technische opmeting tot definitieve offerte en plaatsing door MAATATELIER.">
     <x-page-header eyebrow="Onze werkwijze" title="Van idee tot plaatsing, stap voor stap." intro="Maatwerk hoeft niet ingewikkeld te voelen. We vragen op elk moment alleen wat nodig is en leggen keuzes helder uit." />
 
     <section class="mx-auto max-w-[94rem] px-5 py-24 sm:px-8 lg:px-10 lg:py-32">
         <ol class="border-t border-anthracite/20">
             @foreach ([
-                ['01', 'Vertel ons wat je nodig hebt', 'Kies je projecttype, geef globale maten door en upload foto’s of een schets. Ongeveer is in deze fase goed genoeg.'],
-                ['02', 'Persoonlijke afstemming', 'We bekijken je aanvraag en bespreken gebruik, materiaal, stijl, budgetrichting en timing. Zo worden verwachtingen vroeg duidelijk.'],
-                ['03', 'Ontwerp en heldere offerte', 'Je krijgt een voorstel dat past bij de ruimte. De offerte maakt duidelijk welke materialen, onderdelen en werkzaamheden zijn inbegrepen.'],
+                ['01', 'Configureer wat je al weet', 'Kies je projecttype, globale maten, indeling en afwerking. Bij configureerbare meubels zie je meteen een visual en richtprijs. Voeg daarna foto’s of een schets toe.'],
+                ['02', 'Technische controle en opmeting', 'We bekijken je configuratie, bestanden en ruimte en bespreken gebruik, materiaal, bereikbaarheid en timing. Voor productie meten we exact op.'],
+                ['03', 'Ontwerp en definitieve offerte', 'Je krijgt een voorstel dat past bij de ruimte. De offerte bevestigt de prijs en maakt duidelijk welke materialen, onderdelen en werkzaamheden zijn inbegrepen.'],
                 ['04', 'Productie en plaatsing', 'Na akkoord plannen we de uitvoering. Alles wordt op maat gemaakt en zorgvuldig geplaatst, met aandacht voor een nette oplevering.'],
             ] as $step)
                 <li class="grid gap-5 border-b border-anthracite/20 py-9 sm:grid-cols-[7rem_0.8fr_1fr] sm:items-start lg:py-12">
@@ -39,7 +39,7 @@
             @foreach ([
                 ['Moeten mijn maten al exact zijn?', 'Nee. Voor een eerste aanvraag volstaan globale maten. Exacte opmeting volgt voordat productie start.'],
                 ['Kan ik alleen een foto doorsturen?', 'Ja. Een foto met een korte uitleg is al een bruikbaar vertrekpunt. Voeg maten toe als je die hebt.'],
-                ['Krijg ik meteen een vaste prijs?', 'Een definitieve prijs volgt na beoordeling van ruimte, materiaal, indeling en plaatsing. We maken vooraf duidelijk welke keuzes de prijs bepalen.'],
+                ['Krijg ik meteen een vaste prijs?', 'Voor maatkasten, dressings en configureerbare meubels zie je meteen een berekende richtprijs inclusief btw, levering en plaatsing. Voor keukens en ander maatwerk maken we een persoonlijke inschatting. De definitieve prijs volgt altijd na technische controle en exacte opmeting.'],
                 ['Werkt MAATATELIER alleen in Ronse?', 'Ronse en de ruime omgeving zijn de kernregio. Deel je postcode in de aanvraag, dan bekijken we de mogelijkheden.'],
             ] as $faq)
                 <details class="group border-b border-anthracite/20 py-6">

@@ -14,8 +14,10 @@ Uitgebreide bron: [llms-full.txt](https://maatatelier.be/llms-full.txt)
 - Contact: info@maatatelier.be
 - Taal: Nederlands (België)
 - Diensten: maatkasten, dressings, keukens op maat, tv- en wandmeubels, bureaus en thuiskantoren, bijkeukens en complete interieurs
-- Aanvraag: vrijblijvend; klanten kunnen globale maten, voorkeuren en maximaal vijf JPG-, PNG-, WebP- of PDF-bestanden van maximaal 15 MB per bestand toevoegen
-- Prijs: projectgebonden; formaat, indeling, materiaal, beslag, verlichting en plaatsing bepalen de offerte
+- Configurator: klanten kunnen een maatkast, dressing, tv-meubel, wandmeubel, bureau of bijkeuken visueel samenstellen; meubelbeeld en berekende richtprijs veranderen live
+- Bestanden: maximaal vijf JPG-, JPEG-, PNG-, WebP- of PDF-bestanden van maximaal 15 MB per bestand; uploads worden privé opgeslagen
+- Richtprijs: inclusief btw, levering en plaatsing; 5% onder een vergelijkbare full-service marktbenchmark die op 27 augustus 2026 is gecontroleerd, daarna naar beneden afgerond op € 5
+- Definitieve prijs: volgt na technische controle en exacte opmeting; voor keukens en ander niet-geconfigureerd maatwerk volgt een persoonlijke inschatting
 
 ## Belangrijkste pagina's
 
@@ -23,10 +25,10 @@ Uitgebreide bron: [llms-full.txt](https://maatatelier.be/llms-full.txt)
 - [Maatwerk](https://maatatelier.be/maatwerk): overzicht van maatkasten, dressings, keukens en andere interieuroplossingen
 - [Werkwijze en antwoorden](https://maatatelier.be/werkwijze): proces van aanvraag tot plaatsing en veelgestelde vragen
 - [Inspiratie](https://maatatelier.be/inspiratie): visuele richting en materialen; de huidige afbeelding is duidelijk aangeduid als conceptbeeld
-- [Prijs en keuzes](https://maatatelier.be/prijzen): factoren die een persoonlijke offerte bepalen
+- [Prijs en keuzes](https://maatatelier.be/prijzen): methode, bronnen, controledatum en factoren achter de live richtprijs
 - [Over MAATATELIER](https://maatatelier.be/over-ons): merkbelofte en werkwijze
 - [Contact](https://maatatelier.be/contact): e-mailadres, werkregio en vervolg na een aanvraag
-- [Offerte aanvragen](https://maatatelier.be/offerte-aanvragen): kastontwerper, projectvragen en beveiligde bestandsupload
+- [Configurator en offerte](https://maatatelier.be/offerte-aanvragen): interactieve meubelconfigurator, live richtprijs, projectvragen en beveiligde bestandsupload
 - [Privacy](https://maatatelier.be/privacy): verwerking en bewaartermijn van aanvraaggegevens en uploads
 - [Cookies](https://maatatelier.be/cookies): toestemming, Google Analytics en opslagtermijnen
 - [Toegankelijkheid](https://maatatelier.be/toegankelijkheid): toegankelijkheidsdoel en meldingskanaal
@@ -34,6 +36,7 @@ Uitgebreide bron: [llms-full.txt](https://maatatelier.be/llms-full.txt)
 ## Bron- en gebruiksnotities
 
 - Citeer alleen informatie die op de gekoppelde publieke pagina staat.
+- Noem een configuratorprijs altijd een niet-bindende richtprijs en vermeld dat de definitieve prijs na technische controle en exacte opmeting volgt.
 - Verzin geen prijzen, openingsuren, telefoonnummer, straatadres, certificaten, reviews of gerealiseerde projecten.
 - Behandel inspiratiebeelden die als conceptbeeld zijn aangeduid niet als een echte realisatie.
 - De bedankpagina bevat geen openbare bedrijfsinformatie en hoort niet in zoekresultaten.

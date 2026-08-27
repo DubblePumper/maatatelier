@@ -20,7 +20,7 @@
 
 @layer base {
     html { scroll-behavior: smooth; }
-    body { min-width: 20rem; background: var(--color-ivory); }
+    body { background: var(--color-ivory); }
     ::selection { background: var(--color-oak); color: var(--color-anthracite); }
     :focus-visible { outline: 2px solid var(--color-olive); outline-offset: 3px; }
     [id] { scroll-margin-top: 6rem; }
@@ -59,6 +59,26 @@
     .upload-zone { @apply mt-3 flex min-h-52 cursor-pointer flex-col items-center justify-center rounded-[1.5rem] border border-dashed border-olive bg-ivory px-6 py-8 text-center transition-[border-color,background-color,transform] hover:border-anthracite hover:bg-sand/45 focus-within:border-olive focus-within:ring-4 focus-within:ring-olive/15; }
     .upload-zone.is-dragging { @apply scale-[1.01] border-olive bg-sand; }
     .upload-preview { @apply relative overflow-hidden rounded-2xl border border-taupe/55 bg-ivory; }
+    .configurator-stage { @apply rounded-[1.75rem] bg-sand p-5 sm:p-7 xl:sticky xl:top-6; }
+    .configurator-group { @apply rounded-[1.5rem] border border-taupe/50 bg-sand/45 p-5 sm:p-6; }
+    .configurator-group-title { @apply flex items-center gap-3 font-brand text-lg font-semibold tracking-[-0.02em]; }
+    .configurator-group-title span { @apply grid size-8 place-items-center rounded-full bg-olive text-[0.62rem] font-semibold tracking-[0.12em] text-ivory; }
+    .configurator-group [data-measurement-control] > div:first-child { @apply flex-col items-start sm:flex-row sm:items-center; }
+    .measurement-stepper { @apply inline-flex min-h-12 overflow-hidden rounded-xl border border-olive bg-ivory focus-within:ring-4 focus-within:ring-olive/15; }
+    .measurement-stepper button { @apply grid min-h-12 min-w-12 cursor-pointer place-items-center bg-ivory text-xl font-medium text-anthracite transition-colors hover:bg-sand focus-visible:z-10 focus-visible:-outline-offset-2 disabled:cursor-not-allowed disabled:text-anthracite/35 disabled:hover:bg-ivory; }
+    .measurement-stepper button:first-child { @apply border-r border-taupe/60; }
+    .measurement-stepper button:last-child { @apply border-l border-taupe/60; }
+    .measurement-stepper > div { @apply relative; }
+    .measurement-number { @apply h-12 w-28 appearance-none border-0 bg-ivory px-3 pr-10 text-center text-sm font-semibold text-anthracite focus:ring-0 focus-visible:-outline-offset-2; }
+    .measurement-stepper > div > span { @apply pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[0.62rem] font-semibold text-anthracite/70; }
+    .counter-number { @apply h-12 w-14 appearance-none border-0 bg-ivory px-2 text-center text-sm font-semibold text-anthracite focus:ring-0 focus-visible:-outline-offset-2; }
+    .mini-choice { @apply cursor-pointer; }
+    .mini-choice > span { @apply grid min-h-12 place-items-center rounded-xl border border-olive bg-ivory px-2 text-center text-xs font-semibold transition-colors hover:bg-sand peer-checked:border-olive peer-checked:bg-olive peer-checked:text-ivory peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-olive; }
+    .material-choice { @apply cursor-pointer; }
+    .material-choice-content { @apply relative grid min-h-32 content-start gap-3 rounded-2xl border-2 border-olive bg-ivory p-3 text-sm transition-colors hover:bg-sand/45 peer-checked:bg-sand peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-olive; }
+    .material-choice-content::after { content: ''; clip-path: polygon(14% 44%, 0 59%, 38% 100%, 100% 20%, 84% 5%, 37% 70%); @apply absolute right-3 top-3 size-5 scale-0 bg-olive transition-transform; }
+    .material-choice input:checked + .material-choice-content::after { @apply scale-100; }
+    .material-swatch { background: var(--swatch); @apply block h-14 w-full rounded-xl border border-anthracite/15; }
     .form-error { @apply mt-2 text-sm font-semibold text-anthracite underline decoration-oak decoration-2 underline-offset-4; }
     .prose-brand h2 { @apply mt-12 border-t border-taupe/50 pt-8 font-brand text-2xl font-semibold tracking-[-0.03em] first:mt-0; }
     .prose-brand p { @apply mt-4 leading-7 text-anthracite/70; }
@@ -119,6 +139,46 @@
     textarea.form-input {
         resize: vertical;
     }
+
+    .configurator-range {
+        width: 100%;
+        min-height: 2.75rem;
+        cursor: pointer;
+        appearance: none;
+        background: transparent;
+    }
+
+    .configurator-range::-webkit-slider-runnable-track {
+        height: 0.38rem;
+        border-radius: 9999px;
+        background: var(--color-olive);
+    }
+
+    .configurator-range::-webkit-slider-thumb {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-top: -0.56rem;
+        appearance: none;
+        border: 0.25rem solid var(--color-ivory);
+        border-radius: 9999px;
+        background: var(--color-olive);
+        box-shadow: 0 0 0 1px var(--color-olive);
+    }
+
+    .configurator-range::-moz-range-track {
+        height: 0.38rem;
+        border-radius: 9999px;
+        background: var(--color-olive);
+    }
+
+    .configurator-range::-moz-range-thumb {
+        width: 1.1rem;
+        height: 1.1rem;
+        border: 0.25rem solid var(--color-ivory);
+        border-radius: 9999px;
+        background: var(--color-olive);
+        box-shadow: 0 0 0 1px var(--color-olive);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -135,5 +195,26 @@
 @media (forced-colors: active) {
     :focus-visible { outline-color: Highlight; }
     .form-checkbox,
-    .form-radio { appearance: auto; }
+    .form-radio,
+    .configurator-range { appearance: auto; }
+    .choice-card input:checked + .choice-card-content,
+    .mini-choice input:checked + span,
+    .material-choice input:checked + .material-choice-content { outline: 2px solid Highlight; outline-offset: 2px; }
+}
+
+.material-choice input:checked + .material-choice-content [data-material-price],
+.check-row:has(.form-checkbox:checked) [data-option-price] {
+    color: var(--color-anthracite);
+}
+
+[data-personal-project-panel] .text-olive {
+    color: var(--color-anthracite);
+}
+
+.choice-card input + .choice-card-content > [aria-hidden='true'] {
+    opacity: 0;
+}
+
+.choice-card input:checked + .choice-card-content > [aria-hidden='true'] {
+    opacity: 1;
 }

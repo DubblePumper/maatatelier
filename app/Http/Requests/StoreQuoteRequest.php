@@ -24,7 +24,58 @@ class StoreQuoteRequest extends FormRequest
      */
     public function rules(): array
     {
+        $configurator = config('configurator');
+        $projectType = $this->input('project_type');
+        $hasConfiguratorFlag = $this->exists('configured');
+        $isConfigured = $this->boolean('configured');
+        $isSupportedProjectType = is_string($projectType)
+            && array_key_exists($projectType, $configurator['types']);
+        $hasLivePrice = $hasConfiguratorFlag && $isConfigured && $isSupportedProjectType;
+
+        $widthRules = $hasLivePrice
+            ? ['required', 'integer', $this->betweenRule($configurator['dimensions']['width_mm'])]
+            : ($hasConfiguratorFlag ? ['exclude'] : ['nullable', 'integer', 'between:100,20000']);
+        $heightRules = $hasLivePrice
+            ? ['required', 'integer', $this->betweenRule($configurator['dimensions']['height_mm'])]
+            : ($hasConfiguratorFlag ? ['exclude'] : ['nullable', 'integer', 'between:100,10000']);
+        $depthRules = $hasLivePrice
+            ? ['required', 'integer', $this->betweenRule($configurator['dimensions']['depth_mm'])]
+            : ($hasConfiguratorFlag ? ['exclude'] : ['nullable', 'integer', 'between:100,5000']);
+        $layoutRules = $hasLivePrice
+            ? ['required', 'integer', $this->betweenRule($configurator['modules'])]
+            : ($hasConfiguratorFlag ? ['exclude'] : ['nullable', 'integer', 'between:1,6']);
+        $finishRules = $hasLivePrice
+            ? ['required', 'string', Rule::in(array_keys($configurator['materials']))]
+            : ($hasConfiguratorFlag ? ['exclude'] : ['nullable', 'string', Rule::in([
+                'licht-eiken',
+                'naturel-eiken',
+                'olijfbrons',
+                'ivoor',
+            ])]);
+        $frontRules = $hasLivePrice
+            ? ['required', 'string', Rule::in(array_keys($configurator['fronts']))]
+            : ['exclude'];
+        $interiorRules = $hasLivePrice
+            ? ['required', 'string', Rule::in(array_keys($configurator['levels']))]
+            : ['exclude'];
+        $drawerRules = $hasLivePrice
+            ? ['required', 'integer', $this->betweenRule($configurator['extras']['laden'])]
+            : ['exclude'];
+        $railRules = $hasLivePrice
+            ? ['required', 'integer', $this->betweenRule($configurator['extras']['roedes'])]
+            : ['exclude'];
+        $ledRules = $hasLivePrice ? ['required', 'boolean'] : ['exclude'];
+        $installationRules = $hasLivePrice ? ['required', 'accepted'] : ['exclude'];
+        $approximateDimensionRules = $hasConfiguratorFlag && ! $hasLivePrice
+            ? ['exclude']
+            : ['required', 'boolean'];
+
         return [
+            'configured' => [
+                'nullable',
+                'boolean',
+                Rule::when($hasConfiguratorFlag && $isSupportedProjectType, ['accepted']),
+            ],
             'project_type' => ['required', 'string', Rule::in([
                 'maatkast',
                 'dressing',
@@ -35,17 +86,18 @@ class StoreQuoteRequest extends FormRequest
                 'bijkeuken',
                 'ander-maatwerk',
             ])],
-            'dimensions_are_approximate' => ['required', 'boolean'],
-            'width_mm' => ['nullable', 'integer', 'between:100,20000'],
-            'height_mm' => ['nullable', 'integer', 'between:100,10000'],
-            'depth_mm' => ['nullable', 'integer', 'between:100,5000'],
-            'layout_columns' => ['nullable', 'integer', 'between:1,6'],
-            'finish' => ['nullable', 'string', Rule::in([
-                'licht-eiken',
-                'naturel-eiken',
-                'olijfbrons',
-                'ivoor',
-            ])],
+            'dimensions_are_approximate' => $approximateDimensionRules,
+            'width_mm' => $widthRules,
+            'height_mm' => $heightRules,
+            'depth_mm' => $depthRules,
+            'layout_columns' => $layoutRules,
+            'finish' => $finishRules,
+            'front_style' => $frontRules,
+            'interior_level' => $interiorRules,
+            'drawer_count' => $drawerRules,
+            'rail_count' => $railRules,
+            'led_lighting' => $ledRules,
+            'installation' => $installationRules,
             'features' => ['nullable', 'array', 'max:10'],
             'features.*' => ['string', 'distinct', Rule::in([
                 'legplanken',
@@ -92,6 +144,9 @@ class StoreQuoteRequest extends FormRequest
             'postal_code' => ['required', 'string', 'regex:/^[0-9]{4}$/'],
             'consent' => ['accepted'],
             'website' => ['prohibited'],
+            'estimated_price_cents' => ['prohibited'],
+            'benchmark_price_cents' => ['prohibited'],
+            'pricing_version' => ['prohibited'],
         ];
     }
 
@@ -110,7 +165,9 @@ class StoreQuoteRequest extends FormRequest
             'distinct' => 'Kies elke optie voor :attribute maximaal één keer.',
             'email' => 'Vul een geldig e-mailadres in.',
             'max.string' => ':Attribute is te lang.',
-            'between.numeric' => ':Attribute valt buiten het toegestane bereik.',
+            'between' => ':Attribute valt buiten het toegestane bereik.',
+            'configured.boolean' => 'De configuratie bevat een ongeldige status.',
+            'configured.accepted' => 'Activeer de configurator om voor dit meubel een veilige richtprijs te berekenen.',
             'project_type.required' => 'Kies het type maatwerk waarvoor je een aanvraag doet.',
             'style.required' => 'Kies de stijl die het best bij je past.',
             'budget.required' => 'Kies een budgetrichting. Dit helpt ons om realistisch mee te denken.',
@@ -121,6 +178,10 @@ class StoreQuoteRequest extends FormRequest
             'phone.regex' => 'Vul een geldig telefoonnummer in.',
             'postal_code.regex' => 'Vul een Belgische postcode van 4 cijfers in.',
             'consent.accepted' => 'Bevestig dat we je gegevens mogen gebruiken om je aanvraag te beantwoorden.',
+            'installation.accepted' => 'De configuratieprijs omvat opmeting, levering en plaatsing.',
+            'estimated_price_cents.prohibited' => 'De prijs wordt veilig door MAATATELIER berekend.',
+            'benchmark_price_cents.prohibited' => 'De marktvergelijking wordt veilig door MAATATELIER berekend.',
+            'pricing_version.prohibited' => 'Het prijsboek wordt veilig door MAATATELIER bepaald.',
         ];
     }
 
@@ -136,6 +197,12 @@ class StoreQuoteRequest extends FormRequest
             'depth_mm' => 'diepte',
             'layout_columns' => 'aantal kastmodules',
             'finish' => 'afwerking',
+            'front_style' => 'voorkant',
+            'interior_level' => 'binnenwerk',
+            'drawer_count' => 'aantal laden',
+            'rail_count' => 'aantal kledingroedes',
+            'led_lighting' => 'ledverlichting',
+            'installation' => 'opmeting, levering en plaatsing',
             'attachments' => 'foto\'s en schetsen',
             'name' => 'naam',
             'email' => 'e-mailadres',
@@ -147,5 +214,13 @@ class StoreQuoteRequest extends FormRequest
             'notes' => 'toelichting',
             'features' => 'functies',
         ];
+    }
+
+    /**
+     * @param  array{min: int, max: int}  $range
+     */
+    private function betweenRule(array $range): string
+    {
+        return 'between:'.$range['min'].','.$range['max'];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CalculateFurniturePrice;
 use App\Actions\CreateQuoteRequestAction;
 use App\Http\Requests\StoreQuoteRequest;
 use App\Mail\QuoteRequestConfirmation;
@@ -12,9 +13,29 @@ use Illuminate\View\View;
 
 class QuoteRequestController extends Controller
 {
-    public function create(): View
+    public function create(CalculateFurniturePrice $calculateFurniturePrice): View
     {
-        return view('quote-requests.create');
+        $configuratorRules = config('configurator');
+        $initialConfiguredPrice = $calculateFurniturePrice->handle([
+            'type' => old('project_type', $configuratorRules['defaults']['type']),
+            'width_mm' => old('width_mm', $configuratorRules['dimensions']['width_mm']['default']),
+            'height_mm' => old('height_mm', $configuratorRules['dimensions']['height_mm']['default']),
+            'depth_mm' => old('depth_mm', $configuratorRules['dimensions']['depth_mm']['default']),
+            'layout_columns' => old('layout_columns', $configuratorRules['modules']['default']),
+            'front' => old('front_style', $configuratorRules['defaults']['front']),
+            'material' => old('finish', $configuratorRules['defaults']['material']),
+            'level' => old('interior_level', $configuratorRules['defaults']['level']),
+            'extras' => [
+                'laden' => old('drawer_count', $configuratorRules['extras']['laden']['default']),
+                'roedes' => old('rail_count', $configuratorRules['extras']['roedes']['default']),
+                'led' => old('led_lighting', $configuratorRules['extras']['led']['default']),
+            ],
+        ]);
+
+        return view('quote-requests.create', [
+            'configuratorRules' => $configuratorRules,
+            'initialConfiguredPrice' => $initialConfiguredPrice,
+        ]);
     }
 
     public function store(StoreQuoteRequest $request, CreateQuoteRequestAction $createQuoteRequest): RedirectResponse
@@ -29,7 +50,10 @@ class QuoteRequestController extends Controller
 
         return redirect()
             ->route('quote_requests.thank_you')
-            ->with('quote_request_number', $quoteRequest->id);
+            ->with([
+                'quote_request_number' => $quoteRequest->id,
+                'estimated_price_cents' => $quoteRequest->estimated_price_cents,
+            ]);
     }
 
     public function thankYou(): View
@@ -40,6 +64,7 @@ class QuoteRequestController extends Controller
             'reference' => $quoteRequestNumber
                 ? 'MAAT-'.str_pad((string) $quoteRequestNumber, 5, '0', STR_PAD_LEFT)
                 : null,
+            'estimatedPriceCents' => session()->pull('estimated_price_cents'),
         ]);
     }
 }

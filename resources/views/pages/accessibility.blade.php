@@ -5,8 +5,8 @@
         <h2>Wat we ondersteunen</h2>
         <p>De pagina’s gebruiken duidelijke koppen, beschrijvende links, zichtbare toetsenbordfocus, voldoende kleurcontrast en formulieren met vaste labels en begrijpelijke foutmeldingen. Beweging wordt beperkt wanneer je apparaat daarom vraagt.</p>
 
-        <h2>Offerte aanvragen</h2>
-        <p>De aanvraag kan zonder sleepbeweging worden ingevuld: bestanden zijn ook via de knop te kiezen. Je kunt maximaal vijf JPG-, PNG-, WebP- of PDF-bestanden van maximaal 15 MB per bestand toevoegen.</p>
+        <h2>Configurator en offerte</h2>
+        <p>Alle keuzes in de configurator zijn met toetsenbord en gewone formuliervelden te bedienen; slepen is niet nodig. De visuele meubelweergave heeft een tekstuele samenvatting en wijzigingen aan de richtprijs worden aan hulptechnologie gemeld. Bestanden zijn via de uploadknop te kiezen. Je kunt maximaal vijf JPG-, JPEG-, PNG-, WebP- of PDF-bestanden van maximaal 15 MB per bestand toevoegen.</p>
 
         <h2>Een probleem melden</h2>
         <p>Werkt iets niet goed met je toetsenbord, schermlezer, vergroting of andere ondersteunende technologie? Mail naar <a href="mailto:{{ config('maatatelier.contact_email') }}">{{ config('maatatelier.contact_email') }}</a> en vermeld de pagina, je apparaat en wat je probeerde te doen. We zoeken dan een bruikbaar alternatief en verbeteren de website waar mogelijk.</p>

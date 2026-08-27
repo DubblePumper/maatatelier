@@ -23,6 +23,10 @@ class QuoteRequest extends Model
         'depth_mm',
         'layout_columns',
         'finish',
+        'configuration',
+        'estimated_price_cents',
+        'benchmark_price_cents',
+        'pricing_version',
         'features',
         'style',
         'budget',
@@ -50,7 +54,10 @@ class QuoteRequest extends Model
         return [
             'dimensions_are_approximate' => 'boolean',
             'features' => 'array',
+            'configuration' => 'array',
             'attachments' => 'array',
+            'estimated_price_cents' => 'integer',
+            'benchmark_price_cents' => 'integer',
             'consent_at' => 'datetime',
         ];
     }

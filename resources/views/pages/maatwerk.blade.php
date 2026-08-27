@@ -33,7 +33,7 @@
             </div>
             <div>
                 <p class="text-lg leading-8 text-anthracite/70">Wil je keuken, leefruimte en opberging op elkaar afstemmen? Dan bekijken we kleuren, materialen, verhoudingen en details als één totaalontwerp.</p>
-                <a class="primary-button mt-7" href="{{ route('quote_requests.create') }}">Bespreek je totaalproject</a>
+                <a class="primary-button mt-7" href="{{ route('quote_requests.create') }}">Start configurator</a>
             </div>
         </div>
     </section>

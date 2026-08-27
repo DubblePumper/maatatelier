@@ -1,9 +1,9 @@
-<x-layouts.app title="Offerte voor maatwerk aanvragen | MAATATELIER" description="Vraag vrijblijvend een offerte aan voor een maatkast, keuken of interieur. Teken je kast, geef globale maten door en upload maximaal 5 bestanden van 15 MB.">
+<x-layouts.app title="Maatkast configurator met live prijs | MAATATELIER" description="Stel je maatkast, dressing of meubel visueel samen en zie meteen een berekende richtprijs inclusief btw, levering en plaatsing. Upload daarna maximaal 5 bestanden van 15 MB.">
     <section class="border-b border-taupe/40 bg-sand text-anthracite">
         <div class="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
-            <p class="section-label">Ontwerp & offerte</p>
-            <h1 class="mt-6 max-w-5xl font-brand text-5xl font-semibold leading-[1.02] tracking-[-0.055em] sm:text-7xl">Teken de basis. Wij maken het precies.</h1>
-            <p class="mt-7 max-w-2xl border-l-2 border-olive pl-6 text-lg leading-8 text-anthracite/70">Stel je kast eenvoudig samen, upload foto's van je ruimte en ontvang daarna een persoonlijke offerte.</p>
+            <p class="section-label">Live configurator & offerte</p>
+            <h1 class="mt-6 max-w-5xl font-brand text-5xl font-semibold leading-[1.02] tracking-[-0.055em] sm:text-7xl">Jouw meubel. Meteen zichtbaar én berekend.</h1>
+            <p class="mt-7 max-w-2xl border-l-2 border-olive pl-6 text-lg leading-8 text-anthracite/70">Kies, schuif en verfijn. Het meubelbeeld en de richtprijs veranderen live mee. Daarna kun je foto's toevoegen en het ontwerp technisch laten controleren.</p>
         </div>
     </section>
 
@@ -15,8 +15,9 @@
             </div>
         @endif
 
-        <form action="{{ route('quote_requests.store') }}" method="POST" enctype="multipart/form-data" class="grid gap-8 lg:grid-cols-[1fr_20rem]" data-quote-wizard>
+        <form action="{{ route('quote_requests.store') }}" method="POST" enctype="multipart/form-data" class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]" data-quote-wizard data-furniture-configurator data-configurator-rules="{{ json_encode($configuratorRules, JSON_THROW_ON_ERROR) }}" data-has-errors="{{ $errors->any() ? 'true' : 'false' }}">
             @csrf
+            <input type="hidden" name="configured" value="1">
 
             <div class="min-w-0">
                 <div class="mb-8" aria-label="Voortgang aanvraag">
@@ -29,24 +30,38 @@
                     </div>
                 </div>
 
+                <div class="mb-6 flex items-center justify-between gap-5 rounded-2xl bg-anthracite px-5 py-4 text-ivory lg:hidden" data-mobile-price-card>
+                    <div>
+                        <p class="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-oak">Live richtprijs</p>
+                        <p class="mt-1 text-xs leading-5 text-ivory/70" data-price-status-mobile>Inclusief btw, levering en plaatsing.</p>
+                    </div>
+                    <p class="shrink-0 font-brand text-2xl font-semibold tracking-[-0.035em]" data-configurator-price-mobile>€ {{ number_format($initialConfiguredPrice['estimated_price_cents'] / 100, 0, ',', '.') }}</p>
+                </div>
+
                 <div class="grid gap-6">
                     <fieldset class="wizard-panel" data-wizard-step="1">
-                        <legend class="wizard-legend">Wat wil je laten maken?</legend>
-                        <p class="wizard-help">Kies wat het dichtst in de buurt komt. Je kunt later extra uitleg geven.</p>
+                        <legend class="wizard-legend">Kies je meubel</legend>
+                        <p class="wizard-help">Start met het model dat het dichtst bij je idee ligt. Voor maatkasten en meubels krijg je meteen een live richtprijs.</p>
                         <div class="mt-7 grid gap-3 sm:grid-cols-2">
                             @foreach ([
-                                'maatkast' => 'Maatkast',
-                                'dressing' => 'Dressing',
-                                'keuken' => 'Keuken',
-                                'tv-meubel' => 'TV-meubel',
-                                'bureau' => 'Bureau',
-                                'wandmeubel' => 'Wandmeubel',
-                                'bijkeuken' => 'Bijkeuken',
-                                'ander-maatwerk' => 'Ander maatwerk',
-                            ] as $value => $label)
+                                ['maatkast', 'Maatkast', 'Opberging van wand tot wand', true],
+                                ['dressing', 'Dressing', 'Open of rustig gesloten', true],
+                                ['tv-meubel', 'TV-meubel', 'Techniek slim weggewerkt', true],
+                                ['wandmeubel', 'Wandmeubel', 'Open en gesloten in balans', true],
+                                ['bureau', 'Bureau', 'Een rustige werkplek op maat', true],
+                                ['bijkeuken', 'Bijkeuken', 'Elke centimeter praktisch', true],
+                                ['keuken', 'Keuken', 'Prijs na persoonlijk ontwerp', false],
+                                ['ander-maatwerk', 'Ander maatwerk', 'Vertel ons wat je nodig hebt', false],
+                            ] as [$value, $label, $description, $hasLivePrice])
                                 <label class="choice-card">
-                                    <input class="peer sr-only" type="radio" name="project_type" value="{{ $value }}" @checked(old('project_type') === $value) @if ($errors->has('project_type')) aria-invalid="true" aria-describedby="project-type-error" @endif required>
-                                    <span class="choice-card-content">{{ $label }}</span>
+                                    <input class="peer sr-only" type="radio" name="project_type" value="{{ $value }}" @checked(old('project_type', 'maatkast') === $value) @if ($errors->has('project_type')) aria-invalid="true" aria-describedby="project-type-error" @endif required>
+                                    <span class="choice-card-content min-h-24 items-start">
+                                        <span class="grid gap-1">
+                                            <span data-choice-label>{{ $label }}</span>
+                                            <span class="text-xs font-normal leading-5 text-anthracite/65">{{ $description }}</span>
+                                            <span class="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-olive">{{ $hasLivePrice ? 'Live prijs' : 'Persoonlijke prijs' }}</span>
+                                        </span>
+                                    </span>
                                 </label>
                             @endforeach
                         </div>
@@ -54,72 +69,184 @@
                     </fieldset>
 
                     <fieldset class="wizard-panel" data-wizard-step="2" id="kast-ontwerper">
-                        <legend class="wizard-legend">Welke afmetingen en functies ken je al?</legend>
-                        <p class="wizard-help">Globale maten in millimeter zijn voldoende. Laat een veld leeg als je het nog niet weet.</p>
-                        <div class="mt-7 grid gap-5 sm:grid-cols-3">
-                            @foreach ([['width_mm', 'Breedte', '2400'], ['height_mm', 'Hoogte', '2500'], ['depth_mm', 'Diepte', '600']] as [$name, $label, $placeholder])
-                                <div>
-                                    <label class="form-label" for="{{ $name }}">{{ $label }} <span class="font-normal text-anthracite/70">(mm)</span></label>
-                                    <div class="relative">
-                                        <input class="form-input pr-14" id="{{ $name }}" name="{{ $name }}" type="number" min="100" inputmode="numeric" value="{{ old($name) }}" placeholder="{{ $placeholder }}" @error($name) aria-invalid="true" aria-describedby="{{ $name }}-error" @enderror>
-                                        <span class="pointer-events-none absolute right-4 top-1/2 translate-y-[-0.2rem] text-xs font-semibold text-anthracite/70" aria-hidden="true">mm</span>
+                        <legend class="wizard-legend">Maak het van jou</legend>
+                        <div class="mt-7 rounded-[1.75rem] border border-taupe/50 bg-sand p-6 sm:p-8" data-personal-project-panel hidden>
+                            <span class="grid size-12 place-items-center rounded-full bg-olive font-brand text-lg font-semibold text-ivory" aria-hidden="true">MA</span>
+                            <h2 class="mt-5 font-brand text-2xl font-semibold tracking-[-0.03em]">Dit ontwerp maken we persoonlijk.</h2>
+                            <p class="mt-3 max-w-2xl text-sm leading-6 text-anthracite/70">Een keuken of volledig vrij maatwerk past niet eerlijk in een standaard meubelmodel. Ga verder met je stijl, foto’s en wensen. We bekijken je ruimte en bezorgen daarna een duidelijke persoonlijke prijs.</p>
+                            <p class="mt-5 text-xs font-semibold uppercase tracking-[0.14em] text-olive">Geen generieke kastprijs · wel technisch advies op maat</p>
+                        </div>
+
+                        <div data-live-configurator-panel>
+                            <p class="wizard-help">Begin met globale maten. Elke keuze verandert meteen je meubelbeeld en berekende richtprijs.</p>
+
+                            <div class="mt-8 grid gap-8 xl:grid-cols-[minmax(20rem,1.05fr)_minmax(19rem,0.95fr)] xl:items-start">
+                            <div class="configurator-stage">
+                                <div class="flex flex-wrap items-start justify-between gap-4">
+                                    <div>
+                                        <p class="section-label">Live meubelbeeld</p>
+                                        <p class="mt-2 text-sm text-anthracite/65">Vooraanzicht op verhouding</p>
                                     </div>
-                                    @error($name)<p class="form-error" id="{{ $name }}-error">{{ $message }}</p>@enderror
+                                    <span class="rounded-full border border-olive/40 bg-ivory px-3 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-olive">Live</span>
                                 </div>
-                            @endforeach
-                        </div>
-                        <input type="hidden" name="dimensions_are_approximate" value="0">
-                        <label class="check-row mt-5 flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-transparent px-3 text-sm transition-colors hover:bg-sand/45">
-                            <input class="form-checkbox" type="checkbox" name="dimensions_are_approximate" value="1" @checked(old('dimensions_are_approximate', '1') === '1')>
-                            Deze afmetingen zijn ongeveer
-                        </label>
-                        <div class="mt-9 grid gap-7 rounded-[1.5rem] bg-sand p-5 sm:p-7 lg:grid-cols-[0.8fr_1.2fr]" data-closet-designer>
-                            <div>
-                                <p class="section-label">Jouw kastbeeld</p>
-                                <div class="mt-5">
-                                    <label class="form-label" for="layout_columns">Aantal kastmodules</label>
-                                    <select class="form-input" id="layout_columns" name="layout_columns" @error('layout_columns') aria-invalid="true" aria-describedby="layout-columns-error" @enderror>
-                                        @foreach ([1, 2, 3, 4, 5, 6] as $columns)
-                                            <option value="{{ $columns }}" @selected((int) old('layout_columns', 3) === $columns)>{{ $columns }} {{ $columns === 1 ? 'module' : 'modules' }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('layout_columns')<p class="form-error" id="layout-columns-error">{{ $message }}</p>@enderror
+
+                                <div class="mt-5 grid min-h-80 place-items-center overflow-hidden rounded-[1.5rem] border border-taupe/50 bg-ivory p-4 sm:min-h-[28rem] sm:p-7">
+                                    <svg class="h-auto max-h-[26rem] w-full" viewBox="0 0 800 600" aria-hidden="true" focusable="false" data-configurator-preview>
+                                        <defs>
+                                            <filter id="cabinet-shadow" x="-20%" y="-20%" width="140%" height="160%">
+                                                <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#222222" flood-opacity="0.14" />
+                                            </filter>
+                                            <pattern id="oak-grain" width="26" height="80" patternUnits="userSpaceOnUse">
+                                                <rect width="26" height="80" fill="#d8b58a" />
+                                                <path d="M4 0 C12 20 0 36 9 56 S14 72 10 80 M20 0 C12 18 27 34 18 54 S17 70 22 80" fill="none" stroke="#b8aa98" stroke-width="1.2" opacity="0.55" />
+                                            </pattern>
+                                        </defs>
+                                        <path d="M90 525 H710" stroke="#b8aa98" stroke-width="2" stroke-linecap="round" opacity="0.6" />
+                                        <g data-configurator-drawing filter="url(#cabinet-shadow)">
+                                            <rect x="170" y="120" width="460" height="390" rx="4" fill="url(#oak-grain)" stroke="#6f6a4d" stroke-width="4" />
+                                            <path d="M285 122 V508 M400 122 V508 M515 122 V508" stroke="#222222" stroke-opacity="0.28" stroke-width="2" />
+                                        </g>
+                                    </svg>
                                 </div>
-                                <div class="mt-5">
-                                    <label class="form-label" for="finish">Afwerking</label>
-                                    <select class="form-input" id="finish" name="finish" @error('finish') aria-invalid="true" aria-describedby="finish-error" @enderror>
-                                        @foreach (['licht-eiken' => 'Licht eiken', 'naturel-eiken' => 'Naturel eiken', 'olijfbrons' => 'Olijfbrons', 'ivoor' => 'Ivoor'] as $value => $label)
-                                            <option value="{{ $value }}" @selected(old('finish', 'licht-eiken') === $value)>{{ $label }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('finish')<p class="form-error" id="finish-error">{{ $message }}</p>@enderror
-                                </div>
+                                <p class="mt-4 min-h-12 text-sm leading-6 text-anthracite/70" data-configurator-description>Gesloten maatkast van 2400 × 2500 × 600 mm, vier modules, licht eiken en comfort binnenwerk.</p>
                             </div>
-                            <div>
-                                <div class="cabinet-preview flex h-72 gap-1.5 rounded-xl border-8 border-taupe p-2" data-cabinet-preview data-finish="{{ old('finish', 'licht-eiken') }}" aria-hidden="true">
-                                    @foreach ([1, 2, 3, 4, 5, 6] as $module)
-                                        <div class="cabinet-module relative min-w-0 flex-1 border border-anthracite/25 p-1.5" data-cabinet-module>
-                                            <span class="mt-8 block h-px bg-anthracite/25"></span>
-                                            <span class="mt-16 block h-px bg-anthracite/25"></span>
-                                            <span class="absolute right-2 top-1/2 size-1.5 rounded-full bg-anthracite/55"></span>
+
+                            <div class="grid gap-5">
+                                <fieldset class="configurator-group">
+                                    <legend class="configurator-group-title"><span>01</span> Afmetingen</legend>
+                                    <div class="mt-5 grid gap-5">
+                                        @foreach ([
+                                            ['width_mm', 'Breedte', 600, 5000, 50, 2400],
+                                            ['height_mm', 'Hoogte', 500, 3000, 50, 2500],
+                                            ['depth_mm', 'Diepte', 250, 800, 10, 600],
+                                        ] as [$name, $label, $min, $max, $step, $default])
+                                            <div data-measurement-control>
+                                                <div class="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                                                    <label class="form-label" for="{{ $name }}">{{ $label }}</label>
+                                                    <div class="measurement-stepper">
+                                                        <button type="button" data-step-down aria-label="{{ $label }} met {{ $step }} millimeter verminderen">−</button>
+                                                        <div class="relative">
+                                                            <input class="measurement-number" id="{{ $name }}" name="{{ $name }}" type="number" min="{{ $min }}" max="{{ $max }}" step="{{ $step }}" inputmode="numeric" value="{{ old($name, $default) }}" @error($name) aria-invalid="true" aria-describedby="{{ $name }}-error" @enderror required>
+                                                            <span aria-hidden="true">mm</span>
+                                                        </div>
+                                                        <button type="button" data-step-up aria-label="{{ $label }} met {{ $step }} millimeter verhogen">+</button>
+                                                    </div>
+                                                </div>
+                                                <label class="sr-only" for="{{ $name }}-range">{{ $label }} instellen, in millimeter</label>
+                                                <input class="configurator-range mt-4" id="{{ $name }}-range" type="range" min="{{ $min }}" max="{{ $max }}" step="{{ $step }}" value="{{ old($name, $default) }}" data-range-for="{{ $name }}">
+                                                @error($name)<p class="form-error" id="{{ $name }}-error">{{ $message }}</p>@enderror
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <details class="mt-5 rounded-xl border border-taupe/50 bg-ivory px-4 py-3 text-sm">
+                                        <summary class="min-h-11 cursor-pointer py-2 font-semibold text-olive">Hulp bij het meten</summary>
+                                        <p class="pb-2 leading-6 text-anthracite/70">Meet op drie plaatsen en gebruik voorlopig de kleinste maat. Een afwijking is geen probleem: voor productie meten we alles technisch na.</p>
+                                    </details>
+                                </fieldset>
+
+                                <fieldset class="configurator-group">
+                                    <legend class="configurator-group-title"><span>02</span> Indeling</legend>
+                                    <div class="mt-5 grid gap-5">
+                                        <div>
+                                            <label class="form-label" for="layout_columns">Aantal modules</label>
+                                            <div class="measurement-stepper mt-2 w-fit">
+                                                <button type="button" data-counter-down="layout_columns" aria-label="Eén module minder">−</button>
+                                                <input class="counter-number" id="layout_columns" name="layout_columns" type="number" min="{{ $configuratorRules['modules']['min'] }}" max="{{ $configuratorRules['modules']['max'] }}" step="1" inputmode="numeric" value="{{ old('layout_columns', $configuratorRules['modules']['default']) }}" @error('layout_columns') aria-invalid="true" aria-describedby="layout-columns-error" @enderror required>
+                                                <button type="button" data-counter-up="layout_columns" aria-label="Eén module meer">+</button>
+                                            </div>
+                                            @error('layout_columns')<p class="form-error" id="layout-columns-error">{{ $message }}</p>@enderror
                                         </div>
-                                    @endforeach
-                                </div>
-                                <p class="mt-3 text-center text-xs text-anthracite/65" data-cabinet-description aria-live="polite">Kast met 3 modules in licht eiken.</p>
+
+                                        <fieldset>
+                                            <legend class="form-label">Voorkant</legend>
+                                            <div class="mt-3 grid grid-cols-3 gap-2">
+                                                @foreach (['open' => 'Open', 'draaideuren' => 'Draai', 'schuifdeuren' => 'Schuif'] as $value => $label)
+                                                    <label class="mini-choice">
+                                                        <input class="peer sr-only" type="radio" name="front_style" value="{{ $value }}" @checked(old('front_style', 'draaideuren') === $value) @if ($errors->has('front_style')) aria-invalid="true" aria-describedby="front-style-error" @endif required>
+                                                        <span>{{ $label }}</span>
+                                                    </label>
+                                                @endforeach
+                                            </div>
+                                            @error('front_style')<p class="form-error" id="front-style-error">{{ $message }}</p>@enderror
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend class="form-label">Binnenwerk</legend>
+                                            <div class="mt-3 grid gap-2">
+                                                @foreach ([
+                                                    'basis' => ['Basis', 'Slimme legplanken'],
+                                                    'comfort' => ['Comfort', 'Meer verdeling en zacht beslag'],
+                                                    'premium' => ['Premium', 'Maximale afwerking en detail'],
+                                                ] as $value => [$label, $description])
+                                                    <label class="choice-card">
+                                                        <input class="peer sr-only" type="radio" name="interior_level" value="{{ $value }}" @checked(old('interior_level', 'comfort') === $value) @if ($errors->has('interior_level')) aria-invalid="true" aria-describedby="interior-level-error" @endif required>
+                                                        <span class="choice-card-content justify-between">
+                                                            <span><strong class="block">{{ $label }}</strong><small class="mt-1 block font-normal text-anthracite/65">{{ $description }}</small></span>
+                                                            <span class="text-olive" aria-hidden="true">✓</span>
+                                                        </span>
+                                                    </label>
+                                                @endforeach
+                                            </div>
+                                            @error('interior_level')<p class="form-error" id="interior-level-error">{{ $message }}</p>@enderror
+                                        </fieldset>
+
+                                        <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-2">
+                                            @foreach ([
+                                                ['drawer_count', 'Laden', $configuratorRules['extras']['laden']['min'], $configuratorRules['extras']['laden']['max']],
+                                                ['rail_count', 'Kledingroedes', $configuratorRules['extras']['roedes']['min'], $configuratorRules['extras']['roedes']['max']],
+                                            ] as [$name, $label, $min, $max])
+                                                <div>
+                                                    <label class="form-label" for="{{ $name }}">{{ $label }}</label>
+                                                    <div class="measurement-stepper mt-2 w-fit">
+                                                        <button type="button" data-counter-down="{{ $name }}" aria-label="Eén {{ strtolower($label) }} minder">−</button>
+                                                        <input class="counter-number" id="{{ $name }}" name="{{ $name }}" type="number" min="{{ $min }}" max="{{ $max }}" step="1" inputmode="numeric" value="{{ old($name, $name === 'drawer_count' ? 2 : 1) }}" @error($name) aria-invalid="true" aria-describedby="{{ str($name)->replace('_', '-') }}-error" @enderror required>
+                                                        <button type="button" data-counter-up="{{ $name }}" aria-label="Eén {{ strtolower($label) }} meer">+</button>
+                                                    </div>
+                                                    @error($name)<p class="form-error" id="{{ str($name)->replace('_', '-') }}-error">{{ $message }}</p>@enderror
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+                                        <input type="hidden" name="led_lighting" value="0">
+                                        <label class="check-row flex min-h-14 cursor-pointer items-center justify-between gap-3 rounded-xl border border-taupe/50 bg-ivory px-4 py-3 text-sm transition-colors hover:border-olive hover:bg-sand/45">
+                                            <span class="flex items-center gap-3"><input class="form-checkbox" type="checkbox" name="led_lighting" value="1" @checked(old('led_lighting') === '1') @error('led_lighting') aria-invalid="true" aria-describedby="led-lighting-error" @enderror> Geïntegreerde ledverlichting</span>
+                                            <span class="text-xs font-semibold text-olive" data-option-price="led_lighting"></span>
+                                        </label>
+                                        @error('led_lighting')<p class="form-error" id="led-lighting-error">{{ $message }}</p>@enderror
+                                    </div>
+                                </fieldset>
                             </div>
                         </div>
-                        <div class="mt-9">
-                            <span class="form-label">Welke functies zijn belangrijk?</span>
-                            <div class="mt-3 grid gap-3 sm:grid-cols-2">
-                                @foreach (['legplanken' => 'Legplanken', 'laden' => 'Laden', 'kledingroede' => 'Kledingroede', 'open-vakken' => 'Open vakken', 'deuren' => 'Deuren', 'verlichting' => 'Verlichting', 'schoenen' => 'Schoenenopberging', 'werkblad' => 'Werkblad', 'toestellen' => 'Inbouwtoestellen', 'kabelbeheer' => 'Kabelbeheer'] as $value => $label)
-                                    <label class="check-row flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-taupe/50 bg-ivory px-4 py-3 text-sm transition-colors hover:border-olive hover:bg-sand/45">
-                                        <input class="form-checkbox" type="checkbox" name="features[]" value="{{ $value }}" @checked(in_array($value, old('features', []), true))>
-                                        {{ $label }}
+
+                        <fieldset class="configurator-group mt-8">
+                            <legend class="configurator-group-title"><span>03</span> Materiaal & kleur</legend>
+                            <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+                                @foreach ([
+                                    'ivoor' => ['Ivoor', '#F7F5F2'],
+                                    'zand' => ['Zand', '#E7DED1'],
+                                    'olijfbrons' => ['Olijfbrons', '#6F6A4D'],
+                                    'licht-eiken' => ['Licht eiken', '#D8B58A'],
+                                    'naturel-eiken' => ['Naturel eiken', '#B8AA98'],
+                                ] as $value => [$label, $colour])
+                                    <label class="material-choice">
+                                        <input class="peer sr-only" type="radio" name="finish" value="{{ $value }}" @checked(old('finish', 'licht-eiken') === $value) @if ($errors->has('finish')) aria-invalid="true" aria-describedby="finish-error" @endif required>
+                                        <span class="material-choice-content">
+                                            <span class="material-swatch" style="--swatch: {{ $colour }}" aria-hidden="true"></span>
+                                            <span class="font-semibold">{{ $label }}</span>
+                                            <span class="text-xs text-anthracite/65" data-material-price="{{ $value }}"></span>
+                                        </span>
                                     </label>
                                 @endforeach
                             </div>
-                            @error('features')<p class="form-error">{{ $message }}</p>@enderror
-                            @error('features.*')<p class="form-error">{{ $message }}</p>@enderror
+                            @error('finish')<p class="form-error" id="finish-error">{{ $message }}</p>@enderror
+                        </fieldset>
+
+                        <input type="hidden" name="installation" value="1">
+                        <input type="hidden" name="dimensions_are_approximate" value="0">
+                        <label class="check-row mt-6 flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-transparent px-3 text-sm transition-colors hover:bg-sand/45">
+                            <input class="form-checkbox" type="checkbox" name="dimensions_are_approximate" value="1" @checked(old('dimensions_are_approximate', '1') === '1')>
+                            Mijn afmetingen zijn voorlopig. MAATATELIER meet technisch na voor productie.
+                            </label>
                         </div>
                     </fieldset>
 
@@ -231,8 +358,24 @@
                 </div>
             </div>
 
-            <aside class="h-fit rounded-[2rem] bg-sand p-6 lg:sticky lg:top-6" aria-label="Samenvatting">
-                <p class="section-label">Jouw aanvraag</p>
+            <aside class="h-fit rounded-[2rem] bg-sand p-6 lg:sticky lg:top-6" aria-label="Samenvatting en richtprijs">
+                <p class="section-label">Jouw configuratie</p>
+                <div class="mt-5 rounded-[1.5rem] bg-anthracite p-5 text-ivory" data-price-card>
+                    <p class="text-xs font-semibold uppercase tracking-[0.16em] text-oak">Berekende richtprijs</p>
+                    <p class="mt-3 font-brand text-4xl font-semibold tracking-[-0.045em]" data-configurator-price>€ {{ number_format($initialConfiguredPrice['estimated_price_cents'] / 100, 0, ',', '.') }}</p>
+                    <p class="mt-1 text-xs text-ivory/65">incl. 21% btw, levering en plaatsing</p>
+                    <p class="mt-4 border-t border-ivory/20 pt-4 text-xs leading-5 text-ivory/70" data-price-status>Direct aangepast aan je keuzes.</p>
+                </div>
+                <p class="sr-only" role="status" aria-live="polite" aria-atomic="true" data-configurator-announcement></p>
+                <details class="mt-4 rounded-xl border border-taupe/60 bg-ivory px-4 py-3 text-sm" data-price-details>
+                    <summary class="min-h-11 cursor-pointer py-2 font-semibold text-olive">Bekijk prijsopbouw</summary>
+                    <dl class="grid gap-3 border-t border-taupe/40 py-4 text-xs">
+                        <div class="flex justify-between gap-4"><dt>Vergelijkbare full-service marktprijs</dt><dd data-benchmark-price>€ {{ number_format($initialConfiguredPrice['benchmark_price_cents'] / 100, 0, ',', '.') }}</dd></div>
+                        <div class="flex justify-between gap-4 text-olive"><dt>MAATATELIER voordeel (minstens 5%)</dt><dd data-price-discount>− € {{ number_format($initialConfiguredPrice['savings_cents'] / 100, 0, ',', '.') }}</dd></div>
+                        <div class="flex justify-between gap-4 border-t border-taupe/40 pt-3 font-semibold"><dt>Jouw richtprijs</dt><dd data-price-total>€ {{ number_format($initialConfiguredPrice['estimated_price_cents'] / 100, 0, ',', '.') }}</dd></div>
+                    </dl>
+                    <p class="pb-2 text-xs leading-5 text-anthracite/65">Prijsboek {{ $initialConfiguredPrice['pricing_version'] }} · benchmark gecontroleerd op {{ $configuratorRules['benchmark_checked_at'] }}. We vergelijken alleen geplaatst maatwerk met een gelijkwaardige service.</p>
+                </details>
                 <dl class="mt-5 grid gap-4 text-sm">
                     <div class="border-b border-taupe/20 pb-4">
                         <dt class="text-anthracite/70">Project</dt>
@@ -243,8 +386,8 @@
                         <dd class="mt-1 font-medium" data-summary="style">Nog niet gekozen</dd>
                     </div>
                     <div class="border-b border-taupe/20 pb-4">
-                        <dt class="text-anthracite/70">Kastbeeld</dt>
-                        <dd class="mt-1 font-medium" data-summary="finish">Licht eiken</dd>
+                        <dt class="text-anthracite/70">Uitvoering</dt>
+                        <dd class="mt-1 font-medium" data-summary="configuration">2400 × 2500 × 600 mm · licht eiken</dd>
                     </div>
                     <div class="border-b border-taupe/20 pb-4">
                         <dt class="text-anthracite/70">Budget</dt>
@@ -255,7 +398,7 @@
                         <dd class="mt-1 font-medium" data-summary="attachments">Geen bestanden</dd>
                     </div>
                 </dl>
-                <p class="mt-6 rounded-2xl bg-ivory/60 p-4 text-xs leading-5 text-anthracite/70">Je aanvraag is vrijblijvend. Een definitieve prijs volgt pas na persoonlijke beoordeling.</p>
+                <p class="mt-6 rounded-2xl bg-ivory/60 p-4 text-xs leading-5 text-anthracite/70">Dit is een direct berekende richtprijs. Na technische opmeting bevestigen we materiaal, uitvoerbaarheid en de definitieve prijs vóór je beslist.</p>
             </aside>
         </form>
     </section>

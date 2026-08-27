@@ -15,7 +15,7 @@
         'privacy' => 'Privacy',
         'cookies' => 'Cookies',
         'accessibility' => 'Toegankelijkheid',
-        'quote_requests.create' => 'Offerte aanvragen',
+        'quote_requests.create' => 'Configurator en offerte',
     ];
 
     $graph = [
@@ -92,7 +92,7 @@
             'mainEntity' => [
                 ['@type' => 'Question', 'name' => 'Moeten mijn maten al exact zijn?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Nee. Voor een eerste aanvraag volstaan globale maten. Exacte opmeting volgt voordat productie start.']],
                 ['@type' => 'Question', 'name' => 'Kan ik alleen een foto doorsturen?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Ja. Een foto met een korte uitleg is al een bruikbaar vertrekpunt. Voeg maten toe als je die hebt.']],
-                ['@type' => 'Question', 'name' => 'Krijg ik meteen een vaste prijs?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Een definitieve prijs volgt na beoordeling van ruimte, materiaal, indeling en plaatsing. We maken vooraf duidelijk welke keuzes de prijs bepalen.']],
+                ['@type' => 'Question', 'name' => 'Krijg ik meteen een vaste prijs?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Voor maatkasten, dressings en configureerbare meubels zie je meteen een berekende richtprijs inclusief btw, levering en plaatsing. Voor keukens en ander maatwerk maken we een persoonlijke inschatting. De definitieve prijs volgt altijd na technische controle en exacte opmeting.']],
                 ['@type' => 'Question', 'name' => 'Werkt MAATATELIER alleen in Ronse?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Ronse en de ruime omgeving zijn de kernregio. Deel je postcode in de aanvraag, dan bekijken we de mogelijkheden.']],
             ],
         ];

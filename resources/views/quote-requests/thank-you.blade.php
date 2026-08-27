@@ -8,6 +8,13 @@
             @if ($reference)
                 <p class="mx-auto mt-7 w-fit rounded-xl bg-ivory px-5 py-3 font-brand text-sm font-semibold text-olive">Referentie {{ $reference }}</p>
             @endif
+            @if ($estimatedPriceCents)
+                <div class="mx-auto mt-6 max-w-md rounded-2xl border border-taupe/50 bg-ivory p-5">
+                    <p class="section-label">Bewaarde richtprijs</p>
+                    <p class="mt-2 font-brand text-3xl font-semibold">€ {{ number_format($estimatedPriceCents / 100, 0, ',', '.') }}</p>
+                    <p class="mt-2 text-xs leading-5 text-anthracite/65">Inclusief btw, levering en plaatsing. We bevestigen de definitieve prijs na technische controle.</p>
+                </div>
+            @endif
             <a class="secondary-button mt-9" href="{{ route('home') }}">Terug naar de homepagina</a>
         </div>
     </section>

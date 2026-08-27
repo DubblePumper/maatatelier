@@ -1,3 +1,5 @@
+import { initializeFurnitureConfigurator } from './configurator';
+
 const initializeAnalyticsConsent = () => {
     const measurementId = document.querySelector('meta[name="google-analytics-id"]')?.content;
     const banner = document.querySelector('[data-consent-banner]');
@@ -141,14 +143,15 @@ if (wizard) {
     const panelWithError = panels.findIndex((panel) => panel.querySelector('.form-error'));
     let currentStep = panelWithError >= 0
         ? panelWithError
-        : window.location.hash === '#kast-ontwerper' ? 1 : 0;
+        : 0;
 
     const humanize = (value) => value.replaceAll('-', ' ').replace(/^./, (character) => character.toUpperCase());
 
     const selectedLabel = (name) => {
-        const field = wizard.querySelector(`[name="${name}"]:checked`) ?? wizard.querySelector(`[name="${name}"]`);
+        const checkedField = wizard.querySelector(`[name="${name}"]:checked`);
+        const field = checkedField ?? wizard.querySelector(`[name="${name}"]`);
 
-        if (!field?.value) {
+        if (!field?.value || (!checkedField && field.matches('input[type="radio"], input[type="checkbox"]'))) {
             return 'Nog niet gekozen';
         }
 
@@ -156,7 +159,9 @@ if (wizard) {
             return field.selectedOptions[0]?.textContent.trim() ?? humanize(field.value);
         }
 
-        return field.closest('label')?.textContent.trim() ?? humanize(field.value);
+        return field.closest('label')?.querySelector('[data-choice-label]')?.textContent.trim()
+            ?? field.closest('label')?.textContent.trim()
+            ?? humanize(field.value);
     };
 
     const updateSummary = () => {
@@ -173,26 +178,6 @@ if (wizard) {
         const fileSummary = count === 0 ? 'Geen bestanden' : `${count} bestand${count === 1 ? '' : 'en'}`;
 
         wizard.querySelector('[data-summary="attachments"]').textContent = fileSummary;
-    };
-
-    const updateClosetDesigner = () => {
-        const preview = wizard.querySelector('[data-cabinet-preview]');
-        const description = wizard.querySelector('[data-cabinet-description]');
-        const columnsField = wizard.querySelector('#layout_columns');
-        const finishField = wizard.querySelector('#finish');
-
-        if (!preview || !description || !columnsField || !finishField) {
-            return;
-        }
-
-        const columns = Math.max(1, Math.min(6, Number.parseInt(columnsField.value, 10) || 3));
-        const finishLabel = finishField.selectedOptions[0]?.textContent.trim() ?? 'Licht eiken';
-
-        preview.dataset.finish = finishField.value;
-        preview.querySelectorAll('[data-cabinet-module]').forEach((module, index) => {
-            module.classList.toggle('hidden', index >= columns);
-        });
-        description.textContent = `Kast met ${columns} ${columns === 1 ? 'module' : 'modules'} in ${finishLabel.toLowerCase()}.`;
     };
 
     const initializeFileUpload = () => {
@@ -415,9 +400,7 @@ if (wizard) {
     backButton.addEventListener('click', () => showStep(currentStep - 1, true));
     wizard.addEventListener('change', () => {
         updateSummary();
-        updateClosetDesigner();
     });
-    wizard.addEventListener('input', updateClosetDesigner);
     wizard.addEventListener('submit', () => {
         submitButton.disabled = true;
         submitButton.textContent = 'Aanvraag versturen…';
@@ -425,6 +408,6 @@ if (wizard) {
 
     document.querySelector('[data-form-errors]')?.focus();
     initializeFileUpload();
-    updateClosetDesigner();
+    initializeFurnitureConfigurator(wizard);
     showStep(currentStep);
 }

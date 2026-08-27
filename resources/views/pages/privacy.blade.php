@@ -3,13 +3,13 @@
 
     <article class="prose-brand mx-auto max-w-3xl px-5 py-20 sm:px-8 lg:py-28">
         <h2>Welke gegevens we verwerken</h2>
-        <p>Bij een aanvraag verwerken we je naam, e-mailadres, telefoonnummer, postcode, projectkeuzes, globale maten, toelichting en eventuele foto's of schetsen die je zelf toevoegt.</p>
+        <p>Bij een aanvraag verwerken we je naam, e-mailadres, telefoonnummer, postcode, projectkeuzes, globale maten, toelichting en eventuele foto's, schetsen of plannen die je zelf toevoegt. Voor configureerbare meubels bewaren we ook de gekozen uitvoering, de berekende marktbenchmark, de getoonde richtprijs en de gebruikte versie van het prijsmodel.</p>
 
         <h2>Waarom we deze gegevens gebruiken</h2>
-        <p>We gebruiken deze informatie uitsluitend om je vraag te beoordelen, contact met je op te nemen, een voorstel voor te bereiden en de aanvraag administratief op te volgen.</p>
+        <p>We gebruiken deze informatie uitsluitend om je configuratie en vraag te beoordelen, contact met je op te nemen, de richtprijs technisch te controleren, een definitieve offerte voor te bereiden en de aanvraag administratief op te volgen.</p>
 
         <h2>Bestanden en beveiliging</h2>
-        <p>Geüploade bestanden worden privé opgeslagen en zijn niet openbaar bereikbaar. MAATATELIER ontvangt per aanvraag tijdelijk ondertekende downloadlinks die na {{ config('maatatelier.attachment_link_lifetime_days') }} dagen vervallen. Toegang is beperkt tot wat nodig is voor de behandeling van je aanvraag.</p>
+        <p>Je kunt maximaal vijf JPG-, JPEG-, PNG-, WebP- of PDF-bestanden van maximaal 15 MB per bestand uploaden. Deze bestanden worden privé opgeslagen en zijn niet openbaar bereikbaar. MAATATELIER ontvangt per aanvraag tijdelijk ondertekende downloadlinks die na {{ config('maatatelier.attachment_link_lifetime_days') }} dagen vervallen. Toegang is beperkt tot wat nodig is voor de behandeling van je aanvraag.</p>
 
         <h2>Bewaartermijn</h2>
         <p>Aanvragen die niet tot een opdracht leiden, worden uiterlijk twaalf maanden na ontvangst verwijderd, samen met de bijbehorende uploads. Wettelijke bewaarplichten kunnen voor klant- en factuurgegevens een langere termijn vereisen.</p>
