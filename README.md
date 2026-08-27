@@ -4,7 +4,7 @@ Publieke Laravel-website voor maatatelier.be, met informatie over maatkasten, ke
 
 ## Lokaal starten
 
-Vereisten: PHP 8.5, Composer 2, Node.js en npm.
+Vereisten: PHP 8.3, Composer 2, Node.js en npm.
 
 ```bash
 composer install
