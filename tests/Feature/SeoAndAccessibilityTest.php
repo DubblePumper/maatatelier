@@ -2,10 +2,73 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 class SeoAndAccessibilityTest extends TestCase
 {
+    #[DataProvider('primaryNavigationPages')]
+    public function test_primary_navigation_identifies_the_current_page(string $routeName, string $label): void
+    {
+        $response = $this->get(route($routeName))->assertOk();
+        $document = new \DOMDocument;
+
+        libxml_use_internal_errors(true);
+        $document->loadHTML($response->getContent());
+        libxml_clear_errors();
+
+        $xpath = new \DOMXPath($document);
+        $desktopCurrentLinks = $xpath->query('//nav[@aria-label="Hoofdnavigatie"]/a[@aria-current="page"]');
+        $mobileCurrentLinks = $xpath->query('//nav[@aria-label="Mobiele navigatie"]/a[@aria-current="page"]');
+
+        $this->assertCount(1, $desktopCurrentLinks, "{$routeName} moet één actieve desktoplink hebben.");
+        $this->assertSame($label, trim($desktopCurrentLinks->item(0)->textContent));
+        $this->assertCount(1, $mobileCurrentLinks, "{$routeName} moet één actieve mobiele link hebben.");
+        $this->assertSame($label, trim($mobileCurrentLinks->item(0)->textContent));
+    }
+
+    /**
+     * @return array<string, array{string, string}>
+     */
+    public static function primaryNavigationPages(): array
+    {
+        return [
+            'maatwerk' => ['maatwerk', 'Maatwerk'],
+            'werkwijze' => ['werkwijze', 'Werkwijze'],
+            'inspiratie' => ['inspiratie', 'Inspiratie'],
+            'prijzen' => ['prijzen', 'Prijzen'],
+            'over ons' => ['about', 'Over ons'],
+            'contact' => ['contact', 'Contact'],
+        ];
+    }
+
+    public function test_home_and_configurator_identify_their_current_navigation_link(): void
+    {
+        $homeResponse = $this->get(route('home'))->assertOk();
+        $homeDocument = new \DOMDocument;
+
+        libxml_use_internal_errors(true);
+        $homeDocument->loadHTML($homeResponse->getContent());
+        libxml_clear_errors();
+
+        $homeXpath = new \DOMXPath($homeDocument);
+
+        $this->assertCount(1, $homeXpath->query('//header//a[@aria-label="MAATATELIER - home"][@aria-current="page"]'));
+        $this->assertCount(1, $homeXpath->query('//nav[@aria-label="Mobiele navigatie"]/a[normalize-space()="Home"][@aria-current="page"]'));
+
+        $configuratorResponse = $this->get(route('quote_requests.create'))->assertOk();
+        $configuratorDocument = new \DOMDocument;
+
+        libxml_use_internal_errors(true);
+        $configuratorDocument->loadHTML($configuratorResponse->getContent());
+        libxml_clear_errors();
+
+        $configuratorXpath = new \DOMXPath($configuratorDocument);
+
+        $this->assertCount(1, $configuratorXpath->query('//header/div/a[contains(concat(" ", normalize-space(@class), " "), " primary-button ")][@aria-current="page"]'));
+        $this->assertCount(1, $configuratorXpath->query('//nav[@aria-label="Mobiele navigatie"]/a[contains(concat(" ", normalize-space(@class), " "), " primary-button ")][@aria-current="page"]'));
+    }
+
     public function test_public_pages_have_a_unique_title_one_main_heading_and_described_images(): void
     {
         $routeNames = [

@@ -35,9 +35,17 @@
     .brand-mark { @apply grid size-10 shrink-0 grid-cols-2 overflow-hidden rounded-xl border border-olive bg-ivory font-brand text-[0.58rem] font-semibold text-olive; }
     .brand-mark span { @apply grid place-items-center; }
     .brand-mark span + span { @apply border-l border-olive bg-olive text-ivory; }
-    .nav-link { @apply inline-flex min-h-11 items-center text-anthracite/70 transition-colors hover:text-olive focus-visible:text-olive; }
-    .mobile-nav-link { @apply flex min-h-11 items-center rounded-xl px-4 py-2 text-sm font-medium text-anthracite/70 hover:bg-sand hover:text-anthracite; }
+    .brand-home-link { @apply relative pr-3 transition-opacity hover:opacity-75; }
+    .brand-home-link[aria-current='page']::after { content: ''; @apply absolute right-0 size-1.5 rounded-full bg-olive; }
+    .nav-link { @apply relative inline-flex min-h-11 items-center px-0.5 text-anthracite/70 transition-colors hover:text-anthracite focus-visible:text-olive; }
+    .nav-link::after { content: ''; @apply absolute bottom-0.5 left-1/2 h-0.5 w-full origin-center -translate-x-1/2 scale-x-0 rounded-full bg-olive transition-transform; }
+    .nav-link:hover::after,
+    .nav-link[aria-current='page']::after { @apply scale-x-100; }
+    .nav-link[aria-current='page'] { @apply font-semibold text-anthracite; }
+    .mobile-nav-link { @apply flex min-h-11 items-center rounded-xl px-4 py-2 text-sm font-medium text-anthracite/70 transition-[color,background-color,box-shadow] hover:bg-sand/45 hover:text-anthracite; }
+    .mobile-nav-link[aria-current='page'] { @apply bg-sand/60 font-semibold text-anthracite shadow-[inset_0.125rem_0_0_var(--color-olive)]; }
     .primary-button { @apply inline-flex min-h-12 items-center justify-center rounded-full bg-olive px-6 py-3.5 font-brand text-sm font-semibold text-ivory transition-colors hover:bg-anthracite focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-olive disabled:cursor-wait disabled:bg-taupe disabled:text-anthracite/60; }
+    .primary-button[aria-current='page'] { @apply bg-anthracite shadow-[inset_0_-0.1875rem_0_var(--color-oak)]; }
     .secondary-button { @apply inline-flex min-h-12 items-center justify-center rounded-full border border-olive bg-transparent px-6 py-3.5 font-brand text-sm font-semibold text-anthracite transition-colors hover:border-anthracite hover:bg-anthracite hover:text-ivory disabled:cursor-not-allowed disabled:opacity-50; }
     .footer-link { @apply inline-flex min-h-11 items-center hover:underline focus-visible:underline; }
     .section-label { @apply font-brand text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-anthracite; }
@@ -194,6 +202,10 @@
 }
 @media (forced-colors: active) {
     :focus-visible { outline-color: Highlight; }
+    .brand-home-link[aria-current='page'],
+    .nav-link[aria-current='page'],
+    .mobile-nav-link[aria-current='page'],
+    .primary-button[aria-current='page'] { outline: 2px solid CanvasText; outline-offset: 2px; }
     .form-checkbox,
     .form-radio,
     .configurator-range { appearance: auto; }

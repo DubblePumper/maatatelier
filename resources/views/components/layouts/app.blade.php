@@ -17,6 +17,15 @@
     $googleAnalyticsMeasurementId = $isProductionRequest
         ? config('services.google_analytics.measurement_id')
         : null;
+    $navigationItems = [
+        ['route' => 'maatwerk', 'label' => 'Maatwerk'],
+        ['route' => 'werkwijze', 'label' => 'Werkwijze'],
+        ['route' => 'inspiratie', 'label' => 'Inspiratie'],
+        ['route' => 'prijzen', 'label' => 'Prijzen'],
+        ['route' => 'about', 'label' => 'Over ons'],
+        ['route' => 'contact', 'label' => 'Contact'],
+    ];
+    $isConfiguratorPage = request()->routeIs('quote_requests.create', 'quote_requests.store');
 @endphp
 
 <!DOCTYPE html>
@@ -91,25 +100,18 @@
 
         <header class="relative z-40 border-b border-taupe/40 bg-ivory text-anthracite">
             <div class="mx-auto flex min-h-20 max-w-7xl items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
-                <a href="{{ route('home') }}" class="flex min-h-11 items-center gap-3" aria-label="MAATATELIER - home">
+                <a href="{{ route('home') }}" class="brand-home-link flex min-h-11 items-center gap-3" aria-label="MAATATELIER - home" @if (request()->routeIs('home')) aria-current="page" @endif>
                     <span class="brand-mark" aria-hidden="true"><span>M</span><span>A</span></span>
                     <span class="font-brand text-base font-semibold tracking-[0.18em]">MAATATELIER</span>
                 </a>
 
                 <nav class="hidden items-center gap-7 text-sm font-medium lg:flex" aria-label="Hoofdnavigatie">
-                    @foreach ([
-                        ['maatwerk', 'Maatwerk'],
-                        ['werkwijze', 'Werkwijze'],
-                        ['inspiratie', 'Inspiratie'],
-                        ['prijzen', 'Prijzen'],
-                        ['about', 'Over ons'],
-                        ['contact', 'Contact'],
-                    ] as [$routeName, $label])
-                        <a @class(['nav-link', 'text-olive' => request()->routeIs($routeName)]) href="{{ route($routeName) }}" @if (request()->routeIs($routeName)) aria-current="page" @endif>{{ $label }}</a>
+                    @foreach ($navigationItems as $navigationItem)
+                        <a class="nav-link" href="{{ route($navigationItem['route']) }}" @if (request()->routeIs($navigationItem['route'])) aria-current="page" @endif>{{ $navigationItem['label'] }}</a>
                     @endforeach
                 </nav>
 
-                <a href="{{ route('quote_requests.create') }}" class="primary-button hidden sm:inline-flex">
+                <a href="{{ route('quote_requests.create') }}" class="primary-button hidden sm:inline-flex" @if ($isConfiguratorPage) aria-current="page" @endif>
                     Start configurator
                 </a>
 
@@ -118,13 +120,11 @@
                         Menu
                     </summary>
                     <nav class="absolute right-0 z-40 mt-3 grid w-64 gap-1 rounded-2xl border border-olive bg-ivory p-3 shadow-xl" aria-label="Mobiele navigatie">
-                        <a class="mobile-nav-link" href="{{ route('maatwerk') }}">Maatwerk</a>
-                        <a class="mobile-nav-link" href="{{ route('werkwijze') }}">Werkwijze</a>
-                        <a class="mobile-nav-link" href="{{ route('inspiratie') }}">Inspiratie</a>
-                        <a class="mobile-nav-link" href="{{ route('prijzen') }}">Prijzen</a>
-                        <a class="mobile-nav-link" href="{{ route('about') }}">Over ons</a>
-                        <a class="mobile-nav-link" href="{{ route('contact') }}">Contact</a>
-                        <a class="primary-button mt-2" href="{{ route('quote_requests.create') }}">Start configurator</a>
+                        <a class="mobile-nav-link" href="{{ route('home') }}" @if (request()->routeIs('home')) aria-current="page" @endif>Home</a>
+                        @foreach ($navigationItems as $navigationItem)
+                            <a class="mobile-nav-link" href="{{ route($navigationItem['route']) }}" @if (request()->routeIs($navigationItem['route'])) aria-current="page" @endif>{{ $navigationItem['label'] }}</a>
+                        @endforeach
+                        <a class="primary-button mt-2" href="{{ route('quote_requests.create') }}" @if ($isConfiguratorPage) aria-current="page" @endif>Start configurator</a>
                     </nav>
                 </details>
             </div>
