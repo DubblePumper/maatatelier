@@ -1,10 +1,9 @@
 # MAATATELIER laat publieke informatie doorzoeken door klassieke en AI-zoekmachines.
+# MAATATELIER autorise l'exploration des informations publiques par les moteurs classiques et IA.
 User-agent: *
 Allow: /
-Disallow: /bedankt
 
 User-agent: OAI-SearchBot
 Allow: /
-Disallow: /bedankt
 
 Sitemap: https://maatatelier.be/sitemap.xml

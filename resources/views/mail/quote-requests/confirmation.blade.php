@@ -1,20 +1,32 @@
+@php
+    $configuration = $quoteRequest->configuration ?? [];
+    $typeLabel = data_get(trans('configurator.step_one.types'), $quoteRequest->project_type.'.label', str($quoteRequest->project_type)->replace('-', ' ')->headline());
+    $frontLabel = isset($configuration['front']) ? trans('quote.configurator.fronts.'.$configuration['front']) : '';
+    $materialLabel = isset($configuration['material']) ? trans('quote.configurator.materials.'.$configuration['material']) : '';
+    $reference = 'MAAT-'.str_pad((string) $quoteRequest->id, 5, '0', STR_PAD_LEFT);
+@endphp
 <x-mail::message>
-# Bedankt, {{ $quoteRequest->name }}
+# {{ __('mail.quote_request_confirmation.greeting', ['name' => $quoteRequest->name]) }}
 
-We hebben je aanvraag voor {{ str($quoteRequest->project_type)->replace('-', ' ') }} goed ontvangen.
+{{ __('mail.quote_request_confirmation.received', ['type' => $typeLabel]) }}
 
-Je referentie is **MAAT-{{ str_pad((string) $quoteRequest->id, 5, '0', STR_PAD_LEFT) }}**.
+{{ __('mail.quote_request_confirmation.reference', ['reference' => $reference]) }}
 
 @if ($quoteRequest->estimated_price_cents)
-Je configuratie is bewaard als **{{ $quoteRequest->layout_columns }} {{ $quoteRequest->layout_columns === 1 ? 'module' : 'modules' }}**, {{ str($quoteRequest->configuration['front'])->replace('-', ' ') }} en {{ str($quoteRequest->configuration['material'])->replace('-', ' ') }}.
+{{ __('mail.quote_request_confirmation.configuration', [
+    'modules' => $quoteRequest->layout_columns,
+    'module' => __($quoteRequest->layout_columns === 1 ? 'mail.quote_request_confirmation.module' : 'mail.quote_request_confirmation.modules'),
+    'front' => mb_strtolower($frontLabel),
+    'material' => mb_strtolower($materialLabel),
+]) }}
 
-De bewaarde richtprijs van je configuratie is **€ {{ number_format($quoteRequest->estimated_price_cents / 100, 0, ',', '.') }} inclusief btw, levering en plaatsing**.
+{{ __('mail.quote_request_confirmation.price', ['price' => \App\Support\LocalizedMoney::format($quoteRequest->estimated_price_cents)]) }}
 
-Deze prijs is berekend op basis van de maten en keuzes die je doorgaf. We bevestigen de definitieve prijs na de technische controle en opmeting, voordat je iets beslist.
+{{ __('mail.quote_request_confirmation.price_explanation') }}
 @endif
 
-We bekijken je ruimte, maten en voorkeuren persoonlijk. Daarna nemen we contact met je op om de mogelijkheden en volgende stappen te bespreken.
+{{ __('mail.quote_request_confirmation.next_steps') }}
 
-Hartelijke groet,<br>
+{{ __('mail.quote_request_confirmation.closing') }}<br>
 MAATATELIER
 </x-mail::message>

@@ -12,7 +12,7 @@ Uitgebreide bron: [llms-full.txt](https://maatatelier.be/llms-full.txt)
 - Tagline: Kasten, keukens en interieur op maat
 - Werkregio: Ronse en ruime omgeving; voor andere locaties wordt de postcode persoonlijk beoordeeld
 - Contact: info@maatatelier.be
-- Taal: Nederlands (België)
+- Talen: Nederlands (België, nl-BE) en Frans (België, fr-BE)
 - Diensten: maatkasten, dressings, keukens op maat, tv- en wandmeubels, bureaus en thuiskantoren, bijkeukens en complete interieurs
 - Configurator: klanten kunnen een maatkast, dressing, tv-meubel, wandmeubel, bureau of bijkeuken visueel samenstellen; meubelbeeld en berekende richtprijs veranderen live
 - Bestanden: maximaal vijf JPG-, JPEG-, PNG-, WebP- of PDF-bestanden van maximaal 15 MB per bestand; uploads worden privé opgeslagen
@@ -40,3 +40,44 @@ Uitgebreide bron: [llms-full.txt](https://maatatelier.be/llms-full.txt)
 - Verzin geen prijzen, openingsuren, telefoonnummer, straatadres, certificaten, reviews of gerealiseerde projecten.
 - Behandel inspiratiebeelden die als conceptbeeld zijn aangeduid niet als een echte realisatie.
 - De bedankpagina bevat geen openbare bedrijfsinformatie en hoort niet in zoekresultaten.
+
+## Version française
+
+> MAATATELIER conçoit et réalise des placards, cuisines, meubles et intérieurs complets sur mesure. L’atelier travaille depuis Renaix (Ronse), principalement pour des clients de la région.
+
+Le contenu HTML lié ci-dessous reste la source principale et la plus actuelle. Chaque page française possède une page néerlandaise équivalente, reliée au moyen de `hreflang`.
+
+### Données essentielles
+
+- Nom : MAATATELIER
+- Signature : Placards, cuisines et intérieur sur mesure
+- Zone d’intervention : Renaix (Ronse) et ses environs ; pour les autres localités, le code postal est évalué individuellement
+- Contact : info@maatatelier.be
+- Langue : français (Belgique, fr-BE)
+- Services : placards sur mesure, dressings, cuisines sur mesure, meubles TV et muraux, bureaux, arrière-cuisines et intérieurs complets
+- Configurateur : les clients peuvent composer visuellement une armoire, un dressing, un meuble TV ou mural, un bureau ou une arrière-cuisine ; l’aperçu et l’estimation évoluent en direct
+- Fichiers : maximum cinq fichiers JPG, JPEG, PNG, WebP ou PDF de 15 Mo maximum chacun ; les fichiers sont conservés dans un espace privé
+- Estimation : TVA, livraison et pose comprises ; 5 % sous un benchmark comparable de services complets vérifié le 27 août 2026, puis arrondie vers le bas à 5 €
+- Prix définitif : communiqué après contrôle technique et prise de mesures exacte ; une estimation personnalisée est établie pour les cuisines et les autres projets non configurés
+
+### Pages principales en français
+
+- [Accueil](https://maatatelier.be/fr)
+- [Sur mesure](https://maatatelier.be/fr/sur-mesure)
+- [Méthode et réponses](https://maatatelier.be/fr/notre-methode)
+- [Inspiration](https://maatatelier.be/fr/inspiration)
+- [Prix et choix](https://maatatelier.be/fr/prix)
+- [À propos de MAATATELIER](https://maatatelier.be/fr/a-propos)
+- [Contact](https://maatatelier.be/fr/contact)
+- [Configurateur et devis](https://maatatelier.be/fr/configurateur)
+- [Confidentialité](https://maatatelier.be/fr/confidentialite)
+- [Cookies](https://maatatelier.be/fr/cookies)
+- [Accessibilité](https://maatatelier.be/fr/accessibilite)
+
+### Règles d’utilisation des sources
+
+- Ne citez que des informations présentes sur la page publique liée.
+- Présentez toujours le prix du configurateur comme une estimation non contractuelle et précisez que le prix définitif suit le contrôle technique et la prise de mesures exacte.
+- N’inventez ni prix, ni horaires, ni numéro de téléphone, ni adresse, ni certificat, ni avis, ni projet réalisé.
+- Ne présentez pas les images signalées comme conceptuelles comme des réalisations effectives.
+- La page de remerciement ne contient aucune information publique sur l’entreprise et ne doit pas apparaître dans les résultats de recherche.

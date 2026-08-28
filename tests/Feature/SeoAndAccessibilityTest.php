@@ -65,7 +65,7 @@ class SeoAndAccessibilityTest extends TestCase
 
         $configuratorXpath = new \DOMXPath($configuratorDocument);
 
-        $this->assertCount(1, $configuratorXpath->query('//header/div/a[contains(concat(" ", normalize-space(@class), " "), " primary-button ")][@aria-current="page"]'));
+        $this->assertCount(1, $configuratorXpath->query('//header//a[contains(concat(" ", normalize-space(@class), " "), " primary-button ")][@aria-current="page"][not(ancestor::nav[@aria-label="Mobiele navigatie"])]'));
         $this->assertCount(1, $configuratorXpath->query('//nav[@aria-label="Mobiele navigatie"]/a[contains(concat(" ", normalize-space(@class), " "), " primary-button ")][@aria-current="page"]'));
     }
 

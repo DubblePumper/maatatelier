@@ -31,7 +31,7 @@ class QuoteRequestControllerTest extends TestCase
             ->assertSee('name="configured" value="1"', false)
             ->assertSee('name="project_type"', false)
             ->assertSee('name="layout_columns"', false)
-            ->assertSee("Sleep je foto's hierheen", false)
+            ->assertSee("Sleep je foto's hierheen")
             ->assertSee('data-upload-zone', false)
             ->assertSee('accept=".jpg,.jpeg,.png,.webp,.pdf"', false)
             ->assertSee('multiple', false)

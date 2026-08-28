@@ -7,6 +7,7 @@ use App\Actions\CreateQuoteRequestAction;
 use App\Http\Requests\StoreQuoteRequest;
 use App\Mail\QuoteRequestConfirmation;
 use App\Mail\QuoteRequestReceived;
+use App\Support\LocalizedRoute;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
@@ -33,7 +34,7 @@ class QuoteRequestController extends Controller
         ]);
 
         return view('quote-requests.create', [
-            'configuratorRules' => $configuratorRules,
+            'configuratorRules' => $this->localizedConfiguratorRules($configuratorRules),
             'initialConfiguredPrice' => $initialConfiguredPrice,
         ]);
     }
@@ -43,13 +44,17 @@ class QuoteRequestController extends Controller
         $quoteRequest = $createQuoteRequest->handle($request->validated());
 
         if (config('maatatelier.quote_recipient')) {
-            Mail::to(config('maatatelier.quote_recipient'))->send(new QuoteRequestReceived($quoteRequest));
+            Mail::to(config('maatatelier.quote_recipient'))
+                ->locale('nl')
+                ->send(new QuoteRequestReceived($quoteRequest));
         }
 
-        Mail::to($quoteRequest->email)->send(new QuoteRequestConfirmation($quoteRequest));
+        Mail::to($quoteRequest->email)
+            ->locale(app()->getLocale())
+            ->send(new QuoteRequestConfirmation($quoteRequest));
 
         return redirect()
-            ->route('quote_requests.thank_you')
+            ->route(LocalizedRoute::name('quote_requests.thank_you'))
             ->with([
                 'quote_request_number' => $quoteRequest->id,
                 'estimated_price_cents' => $quoteRequest->estimated_price_cents,
@@ -66,5 +71,37 @@ class QuoteRequestController extends Controller
                 : null,
             'estimatedPriceCents' => session()->pull('estimated_price_cents'),
         ]);
+    }
+
+    /**
+     * Keep pricing data locale-neutral while translating labels at the HTTP boundary.
+     *
+     * @param  array<string, mixed>  $rules
+     * @return array<string, mixed>
+     */
+    private function localizedConfiguratorRules(array $rules): array
+    {
+        $labels = trans('quote.configurator');
+
+        if (! is_array($labels)) {
+            return $rules;
+        }
+
+        $rules['benchmark_checked_at'] = $labels['benchmark_checked_at'] ?? $rules['benchmark_checked_at'];
+
+        foreach ($rules['benchmark_sources'] as $index => $source) {
+            $sourceKey = strtolower($source['name']);
+            $rules['benchmark_sources'][$index]['scope'] = $labels['benchmark_sources'][$sourceKey]
+                ?? $source['scope'];
+        }
+
+        foreach (['types', 'fronts', 'materials', 'levels', 'extras'] as $group) {
+            foreach ($rules[$group] as $key => $option) {
+                $rules[$group][$key]['label'] = $labels[$group][$key]
+                    ?? $option['label'];
+            }
+        }
+
+        return $rules;
     }
 }

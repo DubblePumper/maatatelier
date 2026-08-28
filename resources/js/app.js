@@ -1,5 +1,24 @@
 import { initializeFurnitureConfigurator } from './configurator';
 
+const parseTranslations = (value) => {
+    try {
+        return value ? JSON.parse(value) : {};
+    } catch {
+        return {};
+    }
+};
+
+const siteTranslations = parseTranslations(document.body?.dataset.siteTranslations);
+const translate = (key, replacements = {}) => {
+    let message = siteTranslations[key] ?? key;
+
+    Object.entries(replacements).forEach(([name, value]) => {
+        message = message.replaceAll(`:${name}`, String(value));
+    });
+
+    return message;
+};
+
 const initializeAnalyticsConsent = () => {
     const measurementId = document.querySelector('meta[name="google-analytics-id"]')?.content;
     const banner = document.querySelector('[data-consent-banner]');
@@ -104,7 +123,7 @@ const initializeAnalyticsConsent = () => {
         storeConsent('analytics-granted');
         enableGoogleAnalytics();
         hideBanner();
-        announce('Analytics is toegestaan. Je kunt deze keuze altijd wijzigen via de footer.');
+        announce(translate('analytics_granted'));
     };
 
     const denyAnalytics = () => {
@@ -112,7 +131,7 @@ const initializeAnalyticsConsent = () => {
         window.gtag('consent', 'update', deniedConsent);
         deleteAnalyticsCookies();
         hideBanner();
-        announce('Analytics is niet toegestaan. De website blijft volledig werken.');
+        announce(translate('analytics_denied'));
     };
 
     acceptButton?.addEventListener('click', grantAnalytics);
@@ -152,7 +171,7 @@ if (wizard) {
         const field = checkedField ?? wizard.querySelector(`[name="${name}"]`);
 
         if (!field?.value || (!checkedField && field.matches('input[type="radio"], input[type="checkbox"]'))) {
-            return 'Nog niet gekozen';
+            return translate('not_selected');
         }
 
         if (field instanceof HTMLSelectElement) {
@@ -175,7 +194,9 @@ if (wizard) {
 
         const fileInput = wizard.querySelector('#attachments');
         const count = fileInput?.files?.length ?? 0;
-        const fileSummary = count === 0 ? 'Geen bestanden' : `${count} bestand${count === 1 ? '' : 'en'}`;
+        const fileSummary = count === 0
+            ? translate('no_files')
+            : translate(count === 1 ? 'file_singular' : 'file_plural', { count });
 
         wizard.querySelector('[data-summary="attachments"]').textContent = fileSummary;
     };
@@ -200,7 +221,10 @@ if (wizard) {
                 return `${Math.max(1, Math.round(bytes / 1024))} KB`;
             }
 
-            return `${(bytes / (1024 * 1024)).toFixed(1).replace('.', ',')} MB`;
+            return `${new Intl.NumberFormat(document.documentElement.lang || 'nl-BE', {
+                minimumFractionDigits: 1,
+                maximumFractionDigits: 1,
+            }).format(bytes / (1024 * 1024))} MB`;
         };
 
         const clearPreviewUrls = () => {
@@ -250,7 +274,7 @@ if (wizard) {
 
                     previewUrls.push(previewUrl);
                     image.src = previewUrl;
-                    image.alt = `Voorbeeld van ${file.name}`;
+                    image.alt = translate('preview_alt', { file: file.name });
                     image.className = 'size-full object-cover';
                     media.append(image);
                 } else {
@@ -269,7 +293,7 @@ if (wizard) {
 
                     removeButton.type = 'button';
                     removeButton.className = 'absolute bottom-3 right-3 grid size-10 place-items-center rounded-full border border-olive bg-ivory text-sm font-semibold text-anthracite hover:border-anthracite';
-                    removeButton.setAttribute('aria-label', `${file.name} verwijderen`);
+                    removeButton.setAttribute('aria-label', translate('remove_file', { file: file.name }));
                     removeButton.textContent = '×';
                     removeButton.addEventListener('click', () => {
                         const remainingFiles = [...fileInput.files].filter((_, fileIndex) => fileIndex !== index);
@@ -286,7 +310,7 @@ if (wizard) {
 
             fileSummary.textContent = files.length === 0
                 ? fileSummary.dataset.emptyText
-                : `${files.length} van maximaal ${maximumFiles} bestanden gekozen.`;
+                : translate('selected_files', { count: files.length, max: maximumFiles });
         };
 
         const acceptFiles = (files) => {
@@ -306,7 +330,7 @@ if (wizard) {
             fileInput.dispatchEvent(new Event('change', { bubbles: true }));
 
             if (validFiles.length !== files.length || validFiles.length > maximumFiles) {
-                fileSummary.textContent = 'Niet alle bestanden zijn toegevoegd. Gebruik maximaal 5 JPG-, PNG-, WebP- of PDF-bestanden van maximaal 15 MB.';
+                fileSummary.textContent = translate('invalid_files');
             }
         };
 
@@ -356,7 +380,10 @@ if (wizard) {
 
         progressBar.classList.remove(...progressClasses);
         progressBar.classList.add(progressClasses[currentStep]);
-        progressLabel.textContent = `Stap ${currentStep + 1} van ${panels.length}`;
+        progressLabel.textContent = translate('step_progress', {
+            current: currentStep + 1,
+            total: panels.length,
+        });
         backButton.classList.toggle('hidden', currentStep === 0);
         nextButton.classList.toggle('hidden', currentStep === panels.length - 1);
         submitButton.classList.toggle('hidden', currentStep !== panels.length - 1);
@@ -403,7 +430,7 @@ if (wizard) {
     });
     wizard.addEventListener('submit', () => {
         submitButton.disabled = true;
-        submitButton.textContent = 'Aanvraag versturen…';
+        submitButton.textContent = translate('submitting');
     });
 
     document.querySelector('[data-form-errors]')?.focus();

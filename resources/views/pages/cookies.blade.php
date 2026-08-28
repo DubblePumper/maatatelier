@@ -1,23 +1,25 @@
-<x-layouts.app title="Cookiebeleid | MAATATELIER" description="Lees welke noodzakelijke opslag en analytische cookies MAATATELIER gebruikt, waarom en hoe je jouw keuze kunt wijzigen.">
-    <x-page-header eyebrow="Cookies" title="Duidelijke keuzes, zonder verborgen tracking." intro="De website werkt zonder analytische cookies. De Google-tag start met geweigerde toestemming en gebruikt pas na jouw keuze Analytics-cookies." />
+@php($copy = trans('pages.cookies'))
+
+<x-layouts.app :title="$copy['meta_title']" :description="$copy['meta_description']">
+    <x-page-header :eyebrow="$copy['header']['eyebrow']" :title="$copy['header']['title']" :intro="$copy['header']['intro']" />
 
     <article class="prose-brand mx-auto max-w-3xl px-5 py-20 sm:px-8 lg:py-28">
-        <h2>Noodzakelijke lokale opslag</h2>
-        <p>We bewaren je keuze voor Analytics lokaal in je browser onder <code>maatatelier_consent_v1</code>. Zo hoeven we de vraag niet bij elk bezoek opnieuw te stellen. Deze voorkeur bevat geen naam, e-mailadres of andere contactgegevens, wordt niet naar Google verzonden en blijft staan tot je de keuze wijzigt of de browseropslag wist.</p>
+        <h2>{{ $copy['sections']['storage']['title'] }}</h2>
+        <p>{{ $copy['sections']['storage']['before_code'] }} <code>maatatelier_consent_v1</code>. {{ $copy['sections']['storage']['after_code'] }}</p>
 
-        <h2>Google Analytics</h2>
-        <p>De Google-tag voor Analytics 4 met meet-ID <code>G-7HHM0CZN91</code> wordt op elke pagina geladen met alle opslag- en advertentiesignalen standaard geweigerd. Zolang je geen toestemming geeft, plaatst Analytics geen cookies en ontvangt Google alleen beperkte, cookieloze toestemmings- en meetsignalen. Na toestemming meten we onder meer paginaweergaven, sessies, het globale apparaattype en de globale herkomst van bezoeken. We sturen geen namen, e-mailadressen, telefoonnummers, geüploade bestanden of referentienummers naar Analytics.</p>
+        <h2>{{ $copy['sections']['analytics']['title'] }}</h2>
+        <p>{{ $copy['sections']['analytics']['before_code'] }} <code>G-7HHM0CZN91</code> {{ $copy['sections']['analytics']['after_code'] }}</p>
 
-        <h2>Cookies na toestemming</h2>
-        <p>Google Analytics kan de cookies <code>_ga</code> en <code>_ga_7HHM0CZN91</code> plaatsen om bezoekers en sessies van elkaar te onderscheiden. MAATATELIER beperkt hun levensduur tot maximaal 180 dagen vanaf de eerste plaatsing en verlengt die termijn niet automatisch bij elk paginabezoek.</p>
+        <h2>{{ $copy['sections']['cookies']['title'] }}</h2>
+        <p>{{ $copy['sections']['cookies']['before_codes'] }} <code>_ga</code> {{ $copy['sections']['cookies']['between_codes'] }} <code>_ga_7HHM0CZN91</code> {{ $copy['sections']['cookies']['after_codes'] }}</p>
 
-        <h2>Geen advertentiepersonalisatie</h2>
-        <p>Advertentieopslag, advertentiegebruikersdata, advertentiepersonalisatie en Google Signals blijven uitgeschakeld. Alleen <code>analytics_storage</code> wordt na jouw actieve toestemming op toegestaan gezet.</p>
+        <h2>{{ $copy['sections']['advertising']['title'] }}</h2>
+        <p>{{ $copy['sections']['advertising']['before_code'] }} <code>analytics_storage</code> {{ $copy['sections']['advertising']['after_code'] }}</p>
 
-        <h2>Je keuze wijzigen</h2>
-        <p>Gebruik op elke pagina de knop “Cookie-instellingen” in de footer. Als je Analytics later weigert, sturen we onmiddellijk een ingetrokken toestemmingssignaal en verwijderen we bereikbare Analytics-cookies uit je browser.</p>
+        <h2>{{ $copy['sections']['change']['title'] }}</h2>
+        <p>{{ $copy['sections']['change']['copy'] }}</p>
 
-        <h2>Bewaring bij Google</h2>
-        <p>De bewaartermijn van gebeurtenissen en gebruikersgegevens op de servers van Google wordt beheerd in het Google Analytics-account. Voor vragen over die instelling of over jouw privacyrechten kun je mailen naar <a href="mailto:{{ config('maatatelier.contact_email') }}">{{ config('maatatelier.contact_email') }}</a>.</p>
+        <h2>{{ $copy['sections']['retention']['title'] }}</h2>
+        <p>{{ $copy['sections']['retention']['before_email'] }} <a href="mailto:{{ config('maatatelier.contact_email') }}">{{ config('maatatelier.contact_email') }}</a>.</p>
     </article>
 </x-layouts.app>

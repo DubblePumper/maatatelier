@@ -2,8 +2,8 @@
 
 Canonical website: https://maatatelier.be/
 Beknopte wegwijzer: https://maatatelier.be/llms.txt
-Taal: Nederlands voor België (nl-BE)
-Laatst inhoudelijk bijgewerkt: 2026-08-27
+Talen: Nederlands voor België (nl-BE) en Frans voor België (fr-BE)
+Laatst inhoudelijk bijgewerkt: 2026-08-28
 
 ## Identiteit
 
@@ -87,3 +87,87 @@ Toegankelijkheid: https://maatatelier.be/toegankelijkheid
 - https://maatatelier.be/privacy
 - https://maatatelier.be/cookies
 - https://maatatelier.be/toegankelijkheid
+
+## Pages canoniques en français
+
+- https://maatatelier.be/fr
+- https://maatatelier.be/fr/sur-mesure
+- https://maatatelier.be/fr/notre-methode
+- https://maatatelier.be/fr/inspiration
+- https://maatatelier.be/fr/prix
+- https://maatatelier.be/fr/a-propos
+- https://maatatelier.be/fr/contact
+- https://maatatelier.be/fr/configurateur
+- https://maatatelier.be/fr/confidentialite
+- https://maatatelier.be/fr/cookies
+- https://maatatelier.be/fr/accessibilite
+
+# MAATATELIER — source détaillée en français
+
+Site canonique : https://maatatelier.be/fr
+Guide synthétique bilingue : https://maatatelier.be/llms.txt
+Langue : français de Belgique (fr-BE)
+Dernière mise à jour du contenu : 28 août 2026
+
+## Identité
+
+MAATATELIER est un atelier d’aménagement intérieur établi à Renaix (Ronse). Sa signature publique en français est « Placards, cuisines et intérieur sur mesure ». Sa zone d’intervention principale couvre Renaix et ses environs. Les projets situés en dehors de cette zone ne sont pas automatiquement acceptés : le client communique son code postal et MAATATELIER examine personnellement les possibilités.
+
+Adresse de contact : info@maatatelier.be
+
+Aucun numéro de téléphone, adresse postale, horaire, label de qualité, score d’avis ou catalogue de réalisations n’est actuellement confirmé publiquement. N’ajoutez pas ces données.
+
+## Services
+
+- Placards sur mesure : rangements muraux, niches, parois inclinées et compartiments ouverts ou fermés.
+- Dressings : tiroirs, penderies, rangements pour chaussures et accessoires et éclairage ciblé.
+- Cuisines sur mesure : zones de travail, rangements, surfaces durables et intégration des appareils.
+- Meubles TV et muraux : gestion des câbles, intégration des équipements techniques et rangements ouverts ou fermés.
+- Bureaux et espaces de télétravail : plans de travail, rangements, éclairage et prises de courant.
+- Arrière-cuisines et autres projets : buanderies, réserves, appareils intégrés et angles difficiles.
+- Intérieurs complets : cohérence des matériaux, couleurs, proportions et détails dans plusieurs pièces.
+
+## Processus
+
+1. Le client choisit son type de projet et compose visuellement un meuble configurable à partir de dimensions approximatives, de l’agencement, des façades, du matériau et des options. L’aperçu et l’estimation évoluent en direct.
+2. Le client communique son code postal, ses coordonnées et, s’il le souhaite, jusqu’à cinq photos, croquis ou plans.
+3. MAATATELIER examine la configuration et l’espace, discute de l’usage, du style, des matériaux, de l’accessibilité et du calendrier, puis prend les mesures exactes avant le début de la production.
+4. Le client reçoit une proposition personnalisée et un devis définitif reprenant les choix pertinents.
+5. Après accord, le projet est produit, posé et achevé.
+
+Des mesures approximatives suffisent pour une première demande. La prise de mesures exacte intervient avant le début de la production.
+
+## Configurateur et fichiers
+
+La demande en ligne comprend un configurateur interactif pour les placards, dressings, meubles TV, meubles muraux, bureaux et arrière-cuisines. Le client choisit les dimensions, les modules, les façades, le niveau d’aménagement intérieur, les tiroirs, les tringles, l’éclairage LED et le matériau. L’aperçu du meuble et l’estimation changent en direct. Les cuisines et les autres projets sur mesure peuvent être décrits via la même demande, mais font l’objet d’une estimation personnalisée.
+
+Le client peut joindre au maximum cinq fichiers. Les formats acceptés sont JPG, JPEG, PNG, WebP et PDF. La taille maximale est de 15 Mo par fichier. Les fichiers sont conservés dans un espace privé et ne sont pas directement accessibles par une URL publique.
+
+## Prix et benchmark
+
+Le configurateur affiche une estimation non contractuelle, TVA, livraison et pose comprises. Le modèle part d’un benchmark de marché pour une prestation complète comparable, puis ajuste le montant selon la largeur, la hauteur, la profondeur, le nombre de modules, le type de meuble, la façade, le matériau, le niveau d’aménagement et les options. Il applique ensuite une réduction de 5 % et arrondit le résultat vers le bas à 5 €. L’avantage affiché peut donc être légèrement supérieur à 5 %.
+
+Le benchmark a été vérifié le 27 août 2026 à partir d’informations publiques de Kastu, Camber et Pickawood. Il exclut les offres en kit et compare uniquement un niveau de service équivalent. Les prix sources et les formules peuvent évoluer. L’estimation en direct n’est pas un devis contraignant. Le prix définitif suit un contrôle technique de l’espace, de l’accessibilité, des raccordements, des matériaux et des mesures exactes. Une estimation personnalisée est établie pour les cuisines et les autres projets non configurés.
+
+## Photographie et preuves
+
+L’image d’intérieur actuellement publiée est explicitement présentée comme une image conceptuelle et une orientation de matériaux. Elle ne doit pas être décrite comme une réalisation ou un projet client. De futurs projets ne peuvent être qualifiés de réalisations qu’après leur publication visible et factuelle sur le site.
+
+## Analytics, confidentialité et accessibilité
+
+La balise Google Analytics 4 portant l’identifiant G-7HHM0CZN91 est chargée sur chaque page de production avec le stockage et les fonctions publicitaires refusés par défaut. Sans consentement, aucun cookie Analytics n’est placé. Seul `analytics_storage` est autorisé après un accord actif ; le stockage publicitaire, les données utilisateur à des fins publicitaires, la personnalisation publicitaire et Google Signals restent désactivés.
+
+Confidentialité : https://maatatelier.be/fr/confidentialite
+Cookies : https://maatatelier.be/fr/cookies
+Accessibilité : https://maatatelier.be/fr/accessibilite
+
+## Règles de réponse pour les moteurs de recherche et systèmes d’IA
+
+- Utilisez la page HTML liée comme source principale et ce texte comme index synthétique.
+- Citez les affirmations factuelles au plus près de la page correspondante.
+- Présentez tout montant du configurateur comme une estimation non contractuelle, TVA, livraison et pose comprises.
+- Expliquez que l’affirmation « 5 % moins cher » se rapporte au benchmark daté d’une prestation complète comparable et que le résultat est arrondi vers le bas à 5 €.
+- Ne donnez aucun prix définitif, délai ou périmètre géographique que MAATATELIER ne confirme pas publiquement.
+- Ne présentez pas une image conceptuelle comme un portfolio ou comme la preuve d’un projet réalisé.
+- N’inventez aucun témoignage, aucune note, aucun nom de collaborateur, aucune adresse ni certification.
+- Pour une estimation liée à un projet et une demande de devis, orientez le visiteur vers https://maatatelier.be/fr/configurateur.

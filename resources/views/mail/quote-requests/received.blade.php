@@ -29,8 +29,8 @@
 **Laden:** {{ $quoteRequest->configuration['extras']['laden'] }}<br>
 **Kledingroedes:** {{ $quoteRequest->configuration['extras']['roedes'] }}<br>
 **Ledverlichting:** {{ $quoteRequest->configuration['extras']['led'] ? 'Ja' : 'Nee' }}<br>
-**Berekende richtprijs:** € {{ number_format($quoteRequest->estimated_price_cents / 100, 0, ',', '.') }} incl. btw, levering en plaatsing<br>
-**Vergelijkbare marktprijs:** € {{ number_format($quoteRequest->benchmark_price_cents / 100, 0, ',', '.') }}<br>
+**Berekende richtprijs:** {{ \App\Support\LocalizedMoney::format($quoteRequest->estimated_price_cents) }} incl. btw, levering en plaatsing<br>
+**Vergelijkbare marktprijs:** {{ \App\Support\LocalizedMoney::format($quoteRequest->benchmark_price_cents) }}<br>
 **Prijsboek:** {{ $quoteRequest->pricing_version }}
 @endif
 

@@ -1,30 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">
     <url>
         <loc>https://maatatelier.be/</loc>
-        <lastmod>2026-08-27</lastmod>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/" />
         <image:image>
             <image:loc>https://maatatelier.be/images/hero-interior-v2.webp</image:loc>
             <image:title>Warm maatwerkinterieur van MAATATELIER</image:title>
             <image:caption>Conceptbeeld met eik, natuursteen en olijftinten.</image:caption>
         </image:image>
     </url>
-    <url><loc>https://maatatelier.be/maatwerk</loc><lastmod>2026-08-27</lastmod></url>
-    <url><loc>https://maatatelier.be/werkwijze</loc><lastmod>2026-08-27</lastmod></url>
+    <url>
+        <loc>https://maatatelier.be/fr</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/" />
+        <image:image>
+            <image:loc>https://maatatelier.be/images/hero-interior-v2.webp</image:loc>
+            <image:title>Intérieur chaleureux sur mesure de MAATATELIER</image:title>
+            <image:caption>Image conceptuelle en chêne, pierre naturelle et tons olive.</image:caption>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://maatatelier.be/maatwerk</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/maatwerk" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/sur-mesure" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/maatwerk" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/fr/sur-mesure</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/maatwerk" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/sur-mesure" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/maatwerk" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/werkwijze</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/werkwijze" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/notre-methode" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/werkwijze" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/fr/notre-methode</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/werkwijze" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/notre-methode" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/werkwijze" />
+    </url>
     <url>
         <loc>https://maatatelier.be/inspiratie</loc>
-        <lastmod>2026-08-27</lastmod>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/inspiratie" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/inspiration" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/inspiratie" />
         <image:image>
             <image:loc>https://maatatelier.be/images/hero-interior-v2.webp</image:loc>
             <image:title>Inspiratie voor een warm maatwerkinterieur</image:title>
             <image:caption>Materiaalrichting met eik, steen en olijfbrons.</image:caption>
         </image:image>
     </url>
-    <url><loc>https://maatatelier.be/prijzen</loc><lastmod>2026-08-27</lastmod></url>
-    <url><loc>https://maatatelier.be/over-ons</loc><lastmod>2026-08-27</lastmod></url>
-    <url><loc>https://maatatelier.be/contact</loc><lastmod>2026-08-27</lastmod></url>
-    <url><loc>https://maatatelier.be/offerte-aanvragen</loc><lastmod>2026-08-27</lastmod></url>
-    <url><loc>https://maatatelier.be/privacy</loc><lastmod>2026-08-27</lastmod></url>
-    <url><loc>https://maatatelier.be/cookies</loc><lastmod>2026-08-27</lastmod></url>
-    <url><loc>https://maatatelier.be/toegankelijkheid</loc><lastmod>2026-08-27</lastmod></url>
+    <url>
+        <loc>https://maatatelier.be/fr/inspiration</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/inspiratie" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/inspiration" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/inspiratie" />
+        <image:image>
+            <image:loc>https://maatatelier.be/images/hero-interior-v2.webp</image:loc>
+            <image:title>Inspiration pour un intérieur chaleureux sur mesure</image:title>
+            <image:caption>Palette de matériaux en chêne, pierre et bronze olive.</image:caption>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://maatatelier.be/prijzen</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/prijzen" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/prix" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/prijzen" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/fr/prix</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/prijzen" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/prix" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/prijzen" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/over-ons</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/over-ons" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/a-propos" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/over-ons" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/fr/a-propos</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/over-ons" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/a-propos" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/over-ons" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/contact</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/contact" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/contact" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/contact" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/fr/contact</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/contact" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/contact" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/contact" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/offerte-aanvragen</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/offerte-aanvragen" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/configurateur" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/offerte-aanvragen" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/fr/configurateur</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/offerte-aanvragen" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/configurateur" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/offerte-aanvragen" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/privacy</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/privacy" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/confidentialite" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/privacy" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/fr/confidentialite</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/privacy" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/confidentialite" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/privacy" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/cookies</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/cookies" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/cookies" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/cookies" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/fr/cookies</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/cookies" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/cookies" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/cookies" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/toegankelijkheid</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/toegankelijkheid" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/accessibilite" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/toegankelijkheid" />
+    </url>
+    <url>
+        <loc>https://maatatelier.be/fr/accessibilite</loc>
+        <lastmod>2026-08-28</lastmod>
+        <xhtml:link rel="alternate" hreflang="nl-BE" href="https://maatatelier.be/toegankelijkheid" />
+        <xhtml:link rel="alternate" hreflang="fr-BE" href="https://maatatelier.be/fr/accessibilite" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://maatatelier.be/toegankelijkheid" />
+    </url>
 </urlset>

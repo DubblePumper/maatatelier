@@ -21,7 +21,7 @@ class QuoteRequestConfirmation extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'We hebben je maatwerkaanvraag goed ontvangen',
+            subject: __('mail.quote_request_confirmation.subject'),
         );
     }
 

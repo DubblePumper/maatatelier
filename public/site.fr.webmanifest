@@ -1,0 +1,22 @@
+{
+    "id": "/fr",
+    "name": "MAATATELIER",
+    "short_name": "MAATATELIER",
+    "description": "Placards, cuisines et intérieur sur mesure depuis Renaix (Ronse).",
+    "lang": "fr-BE",
+    "dir": "ltr",
+    "start_url": "/fr",
+    "scope": "/fr",
+    "display": "standalone",
+    "background_color": "#f7f5f2",
+    "theme_color": "#6f6a4d",
+    "categories": ["business", "lifestyle"],
+    "icons": [
+        {
+            "src": "/images/app-icon.png",
+            "sizes": "1254x1254",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}

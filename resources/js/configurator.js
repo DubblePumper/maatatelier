@@ -1,7 +1,7 @@
 const svgNamespace = 'http://www.w3.org/2000/svg';
 const storageKey = 'maatatelier_configurator_v1';
 
-const formatEuro = new Intl.NumberFormat('nl-BE', {
+const formatEuro = new Intl.NumberFormat(document.documentElement.lang || 'nl-BE', {
     style: 'currency',
     currency: 'EUR',
     maximumFractionDigits: 0,
@@ -456,6 +456,23 @@ const saveConfiguration = (configuration, rules) => {
 };
 
 export const initializeFurnitureConfigurator = (form) => {
+    let translations = {};
+
+    try {
+        translations = JSON.parse(form.dataset.configuratorTranslations ?? '{}');
+    } catch {
+        translations = {};
+    }
+
+    const translate = (key, replacements = {}) => {
+        let message = translations[key] ?? key;
+
+        Object.entries(replacements).forEach(([name, value]) => {
+            message = message.replaceAll(`:${name}`, String(value));
+        });
+
+        return message;
+    };
     if (!form?.matches('[data-furniture-configurator]')) {
         return;
     }
@@ -520,9 +537,9 @@ export const initializeFurnitureConfigurator = (form) => {
             const difference = alternative.estimatedPriceCents - currentPrice.estimatedPriceCents;
 
             target.textContent = material === configuration.material
-                ? 'Gekozen'
+                ? translate('chosen')
                 : difference === 0
-                    ? 'Zelfde prijs'
+                    ? translate('same_price')
                     : `${difference > 0 ? '+' : '−'} ${formatEuro.format(Math.abs(difference) / 100)}`;
         });
 
@@ -545,7 +562,7 @@ export const initializeFurnitureConfigurator = (form) => {
 
     const clearOptionPrices = () => {
         form.querySelectorAll('[data-material-price], [data-option-price]').forEach((target) => {
-            target.textContent = 'Prijs na ontwerp';
+            target.textContent = translate('price_after_design');
         });
     };
 
@@ -610,13 +627,13 @@ export const initializeFurnitureConfigurator = (form) => {
 
     const render = () => {
         const configuration = readConfiguration(form, rules);
-        const typeLabel = rules.types[configuration.type]?.label ?? 'Ander maatwerk';
+        const typeLabel = rules.types[configuration.type]?.label ?? translate('other_custom');
         const frontLabel = rules.fronts[configuration.front]?.label ?? configuration.front;
         const materialLabel = rules.materials[configuration.material]?.label ?? configuration.material;
         const levelLabel = rules.levels[configuration.level]?.label ?? configuration.level;
         const summary = configuration.typeIsSupported
-            ? `${typeLabel}, ${configuration.width_mm} × ${configuration.height_mm} × ${configuration.depth_mm} mm, ${configuration.modules} ${configuration.modules === 1 ? 'module' : 'modules'}, ${frontLabel.toLowerCase()}, ${materialLabel.toLowerCase()} en ${levelLabel.toLowerCase()} binnenwerk.`
-            : `${typeLabel}. Persoonlijk ontwerp op basis van je wensen en foto’s.`;
+            ? `${typeLabel}, ${configuration.width_mm} × ${configuration.height_mm} × ${configuration.depth_mm} mm, ${configuration.modules} ${translate(configuration.modules === 1 ? 'module' : 'modules')}, ${frontLabel.toLowerCase()}, ${materialLabel.toLowerCase()} ${translate('and')} ${levelLabel.toLowerCase()} ${translate('interior')}.`
+            : translate('personal_description', { type: typeLabel });
 
         setLiveConfiguratorAvailability(configuration.typeIsSupported);
 
@@ -627,7 +644,7 @@ export const initializeFurnitureConfigurator = (form) => {
         if (configurationSummary) {
             configurationSummary.textContent = configuration.typeIsSupported
                 ? `${configuration.width_mm} × ${configuration.height_mm} × ${configuration.depth_mm} mm · ${materialLabel}`
-                : 'Persoonlijk ontwerp op basis van je wensen en foto’s';
+                : translate('personal_summary');
         }
 
         if (configuration.typeIsSupported) {
@@ -645,10 +662,10 @@ export const initializeFurnitureConfigurator = (form) => {
 
         if (!configuration.typeIsSupported) {
             priceTargets.forEach((target) => {
-                target.textContent = 'Persoonlijke prijs';
+                target.textContent = translate('personal_price');
             });
             priceStatusTargets.forEach((target) => {
-                target.textContent = 'Voor keukens en bijzonder maatwerk controleren we eerst de technische keuzes. Je krijgt daarna snel een duidelijke prijs.';
+                target.textContent = translate('personal_status');
             });
 
             if (priceDetails) {
@@ -660,7 +677,7 @@ export const initializeFurnitureConfigurator = (form) => {
 
             announcementTimeout = window.setTimeout(() => {
                 if (announcement) {
-                    announcement.textContent = `${summary} Voor dit project maken we een persoonlijke prijs na controle van de technische keuzes.`;
+                    announcement.textContent = translate('personal_announcement', { summary });
                 }
             }, 320);
 
@@ -686,7 +703,7 @@ export const initializeFurnitureConfigurator = (form) => {
         }
 
         priceStatusTargets.forEach((target) => {
-            target.textContent = 'Direct aangepast aan je keuzes. Ontwerp, levering en plaatsing zijn inbegrepen.';
+            target.textContent = translate('live_status');
         });
 
         if (priceDetails) {
@@ -698,7 +715,10 @@ export const initializeFurnitureConfigurator = (form) => {
 
         announcementTimeout = window.setTimeout(() => {
             if (announcement) {
-                announcement.textContent = `${summary} Berekende richtprijs ${formatEuro.format(calculated.estimatedPriceCents / 100)}, inclusief btw, levering en plaatsing.`;
+                announcement.textContent = translate('live_announcement', {
+                    summary,
+                    price: formatEuro.format(calculated.estimatedPriceCents / 100),
+                });
             }
         }, 320);
     };

@@ -3,20 +3,13 @@
 @php
     $baseUrl = rtrim(config('maatatelier.canonical_url'), '/');
     $organizationId = $baseUrl.'/#organization';
-    $websiteId = $baseUrl.'/#website';
-    $routeName = request()->route()?->getName();
-    $routeLabels = [
-        'maatwerk' => 'Maatwerk',
-        'werkwijze' => 'Werkwijze',
-        'inspiratie' => 'Inspiratie',
-        'prijzen' => 'Prijzen',
-        'about' => 'Over ons',
-        'contact' => 'Contact',
-        'privacy' => 'Privacy',
-        'cookies' => 'Cookies',
-        'accessibility' => 'Toegankelijkheid',
-        'quote_requests.create' => 'Configurator en offerte',
-    ];
+    $language = __('layout.locale.html');
+    $localizedHomePath = parse_url(\App\Support\LocalizedRoute::url('home'), PHP_URL_PATH) ?: '/';
+    $homeUrl = $baseUrl.($localizedHomePath === '/' ? '/' : $localizedHomePath);
+    $websiteId = $homeUrl.'#website';
+    $routeName = \App\Support\LocalizedRoute::baseName();
+    $structuredCopy = trans('structured');
+    $routeLabels = $structuredCopy['route_labels'];
 
     $graph = [
         [
@@ -24,8 +17,8 @@
             '@id' => $organizationId,
             'name' => 'MAATATELIER',
             'url' => $baseUrl.'/',
-            'description' => 'Atelier voor maatkasten, dressings, keukens, meubels en complete interieurs op maat vanuit Ronse.',
-            'slogan' => 'Kasten, keukens en interieur op maat',
+            'description' => $structuredCopy['organization_description'],
+            'slogan' => $structuredCopy['slogan'],
             'email' => config('maatatelier.contact_email'),
             'logo' => [
                 '@type' => 'ImageObject',
@@ -41,27 +34,27 @@
             ],
             'areaServed' => [
                 '@type' => 'AdministrativeArea',
-                'name' => 'Ronse en ruime omgeving',
+                'name' => $structuredCopy['area_served'],
             ],
-            'knowsAbout' => ['Maatkasten', 'Dressings', 'Keukens op maat', 'TV-meubels', 'Bureaus op maat', 'Interieur op maat'],
+            'knowsAbout' => $structuredCopy['knows_about'],
             'hasOfferCatalog' => [
                 '@type' => 'OfferCatalog',
-                'name' => 'Maatwerkinterieur',
+                'name' => $structuredCopy['catalog_name'],
                 'itemListElement' => array_map(
                     fn (string $service): array => [
                         '@type' => 'Offer',
                         'itemOffered' => ['@type' => 'Service', 'name' => $service],
                     ],
-                    ['Maatkasten en dressings', 'Keukens op maat', 'TV- en wandmeubels', 'Bureaus en thuiskantoren', 'Complete interieurs op maat'],
+                    $structuredCopy['services'],
                 ),
             ],
         ],
         [
             '@type' => 'WebSite',
             '@id' => $websiteId,
-            'url' => $baseUrl.'/',
+            'url' => $homeUrl,
             'name' => 'MAATATELIER',
-            'inLanguage' => 'nl-BE',
+            'inLanguage' => $language,
             'publisher' => ['@id' => $organizationId],
         ],
         [
@@ -70,7 +63,7 @@
             'url' => $canonical,
             'name' => $title,
             'description' => $description,
-            'inLanguage' => 'nl-BE',
+            'inLanguage' => $language,
             'isPartOf' => ['@id' => $websiteId],
             'about' => ['@id' => $organizationId],
         ],
@@ -80,7 +73,7 @@
         $graph[] = [
             '@type' => 'BreadcrumbList',
             'itemListElement' => [
-                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => $baseUrl.'/'],
+                ['@type' => 'ListItem', 'position' => 1, 'name' => $structuredCopy['home'], 'item' => $homeUrl],
                 ['@type' => 'ListItem', 'position' => 2, 'name' => $routeLabels[$routeName], 'item' => $canonical],
             ],
         ];
@@ -89,12 +82,14 @@
     if ($routeName === 'werkwijze') {
         $graph[] = [
             '@type' => 'FAQPage',
-            'mainEntity' => [
-                ['@type' => 'Question', 'name' => 'Moeten mijn maten al exact zijn?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Nee. Voor een eerste aanvraag volstaan globale maten. Exacte opmeting volgt voordat productie start.']],
-                ['@type' => 'Question', 'name' => 'Kan ik alleen een foto doorsturen?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Ja. Een foto met een korte uitleg is al een bruikbaar vertrekpunt. Voeg maten toe als je die hebt.']],
-                ['@type' => 'Question', 'name' => 'Krijg ik meteen een vaste prijs?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Voor maatkasten, dressings en configureerbare meubels zie je meteen een berekende richtprijs inclusief btw, levering en plaatsing. Voor keukens en ander maatwerk maken we een persoonlijke inschatting. De definitieve prijs volgt altijd na technische controle en exacte opmeting.']],
-                ['@type' => 'Question', 'name' => 'Werkt MAATATELIER alleen in Ronse?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Ronse en de ruime omgeving zijn de kernregio. Deel je postcode in de aanvraag, dan bekijken we de mogelijkheden.']],
-            ],
+            'mainEntity' => array_map(
+                fn (array $item): array => [
+                    '@type' => 'Question',
+                    'name' => $item['question'],
+                    'acceptedAnswer' => ['@type' => 'Answer', 'text' => $item['answer']],
+                ],
+                $structuredCopy['faq'],
+            ),
         ];
     }
 

@@ -155,34 +155,9 @@ class StoreQuoteRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [
-            'required' => 'Vul :attribute in.',
-            'string' => ':Attribute moet tekst zijn.',
-            'integer' => ':Attribute moet een geheel getal zijn.',
-            'boolean' => 'Kies een geldige optie voor :attribute.',
-            'array' => ':Attribute bevat geen geldige selectie.',
-            'in' => 'Kies een geldige optie voor :attribute.',
-            'distinct' => 'Kies elke optie voor :attribute maximaal één keer.',
-            'email' => 'Vul een geldig e-mailadres in.',
-            'max.string' => ':Attribute is te lang.',
-            'between' => ':Attribute valt buiten het toegestane bereik.',
-            'configured.boolean' => 'De configuratie bevat een ongeldige status.',
-            'configured.accepted' => 'Activeer de configurator om voor dit meubel een veilige richtprijs te berekenen.',
-            'project_type.required' => 'Kies het type maatwerk waarvoor je een aanvraag doet.',
-            'style.required' => 'Kies de stijl die het best bij je past.',
-            'budget.required' => 'Kies een budgetrichting. Dit helpt ons om realistisch mee te denken.',
-            'timing.required' => 'Geef aan wanneer je het project ongeveer wilt realiseren.',
-            'attachments.max' => 'Je kunt maximaal 5 bestanden toevoegen.',
-            'attachments.*.max' => 'Elk bestand mag maximaal 15 MB groot zijn.',
-            'attachments.*.mimes' => 'Upload een JPG-, PNG-, WebP- of PDF-bestand.',
-            'phone.regex' => 'Vul een geldig telefoonnummer in.',
-            'postal_code.regex' => 'Vul een Belgische postcode van 4 cijfers in.',
-            'consent.accepted' => 'Bevestig dat we je gegevens mogen gebruiken om je aanvraag te beantwoorden.',
-            'installation.accepted' => 'De configuratieprijs omvat opmeting, levering en plaatsing.',
-            'estimated_price_cents.prohibited' => 'De prijs wordt veilig door MAATATELIER berekend.',
-            'benchmark_price_cents.prohibited' => 'De marktvergelijking wordt veilig door MAATATELIER berekend.',
-            'pricing_version.prohibited' => 'Het prijsboek wordt veilig door MAATATELIER bepaald.',
-        ];
+        $messages = trans('quote.validation.messages');
+
+        return is_array($messages) ? $messages : [];
     }
 
     /**
@@ -190,30 +165,9 @@ class StoreQuoteRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return [
-            'project_type' => 'type maatwerk',
-            'width_mm' => 'breedte',
-            'height_mm' => 'hoogte',
-            'depth_mm' => 'diepte',
-            'layout_columns' => 'aantal kastmodules',
-            'finish' => 'afwerking',
-            'front_style' => 'voorkant',
-            'interior_level' => 'binnenwerk',
-            'drawer_count' => 'aantal laden',
-            'rail_count' => 'aantal kledingroedes',
-            'led_lighting' => 'ledverlichting',
-            'installation' => 'opmeting, levering en plaatsing',
-            'attachments' => 'foto\'s en schetsen',
-            'name' => 'naam',
-            'email' => 'e-mailadres',
-            'phone' => 'telefoonnummer',
-            'postal_code' => 'postcode',
-            'style' => 'stijl',
-            'budget' => 'budgetrichting',
-            'timing' => 'timing',
-            'notes' => 'toelichting',
-            'features' => 'functies',
-        ];
+        $attributes = trans('quote.validation.attributes');
+
+        return is_array($attributes) ? $attributes : [];
     }
 
     /**

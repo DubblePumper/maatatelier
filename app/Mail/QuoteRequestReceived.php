@@ -24,7 +24,7 @@ class QuoteRequestReceived extends Mailable
     {
         return new Envelope(
             replyTo: [new Address($this->quoteRequest->email, $this->quoteRequest->name)],
-            subject: 'Nieuwe maatwerkaanvraag #'.$this->quoteRequest->id,
+            subject: __('mail.quote_request_received.subject', ['number' => $this->quoteRequest->id]),
         );
     }
 
@@ -65,7 +65,9 @@ class QuoteRequestReceived extends Mailable
                         ['quoteRequest' => $this->quoteRequest, 'attachment' => $index],
                         false,
                     ),
-                    'name' => $attachment['original_name'] ?? 'Bijlage '.($index + 1),
+                    'name' => $attachment['original_name'] ?? __('mail.quote_request_received.attachment_name', [
+                        'number' => $index + 1,
+                    ]),
                     'size' => (int) ($attachment['size'] ?? 0),
                 ];
             })

@@ -4,7 +4,14 @@ Locatie: Ronse, België
 Contact: info@maatatelier.be
 
 /* SITE */
-Taal: Nederlands (België)
+Talen: Nederlands (België) en Frans (België)
 Technologie: Laravel, Blade, Tailwind CSS en JavaScript
 Standaarden: semantische HTML, WCAG 2.2 AA als toegankelijkheidsdoel, privacyvriendelijke Analytics-toestemming
-Laatste update: 2026-08-27
+Laatste update: 2026-08-28
+
+/* VERSION FRANÇAISE */
+Nom : MAATATELIER
+Lieu : Renaix (Ronse), Belgique
+Contact : info@maatatelier.be
+Technologies : Laravel, Blade, Tailwind CSS et JavaScript
+Standards : HTML sémantique, objectif d’accessibilité WCAG 2.2 AA, consentement Analytics respectueux de la vie privée
